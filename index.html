@@ -1,0 +1,2893 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SoundFrame Studio | Music Supervision for Film & TV</title>
+    <meta name="description"
+        content="SoundFrame Studio: Production-grade music supervision for Directors, Producers, and Film Studios. Every scene has a frequency.">
+
+    <!-- Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Bebas+Neue&family=DM+Mono:wght@300;400&display=swap"
+        rel="stylesheet">
+
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+
+    <style>
+        :root {
+            /* DARK MODE (DEFAULT) */
+            --color-bg-void: #080A0F;
+            --color-bg-surface: #0F1219;
+            --color-bg-elevated: #161B26;
+            --color-border: #1E2330;
+            --color-border-hover: #2D3448;
+            --color-primary: #C9A84C;
+            --color-primary-dim: rgba(201, 168, 76, 0.12);
+            --color-primary-glow: rgba(201, 168, 76, 0.08);
+            --color-text-primary: #FFFFFF;
+            --color-text-muted: #D1D5DB;
+            --color-text-faint: #9CA3AF;
+            --color-status-ok: #3D9970;
+            --color-status-err: #C0392B;
+            --color-status-warn: #E67E22;
+
+            --transition-main: 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+            --transition-reveal: 0.7s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        html.light {
+            --color-bg-void: #F9F7F3;
+            --color-bg-surface: #F0EDE6;
+            --color-bg-elevated: #E8E4D9;
+            --color-border: #D4CFC5;
+            --color-border-hover: #B8B0A0;
+            --color-primary: #B8923A;
+            --color-primary-dim: rgba(184, 146, 58, 0.10);
+            --color-primary-glow: rgba(184, 146, 58, 0.06);
+            --color-text-primary: #000000;
+            --color-text-muted: #374151;
+            --color-text-faint: #4B5563;
+        }
+
+        /* --- GLOBAL RESET --- */
+        *,
+        *::after,
+        *::before {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--color-bg-void);
+            color: var(--color-text-primary);
+            font-family: 'DM Mono', monospace;
+            line-height: 1.6;
+            overflow-x: hidden;
+            width: 100%;
+            -webkit-font-smoothing: antialiased;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            position: relative;
+        }
+
+        /* Film Grain Texture */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.03;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: var(--transition-main);
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        img {
+            max-width: 100%;
+            display: block;
+        }
+
+        button {
+            border: none;
+            cursor: pointer;
+            transition: var(--transition-main);
+        }
+
+        h1,
+        h2,
+        h3,
+        h4 {
+            font-family: 'Cormorant Garamond', serif;
+            color: var(--color-text-primary);
+            font-weight: 400;
+        }
+
+        .bebas {
+            font-family: 'Bebas Neue', sans-serif;
+            letter-spacing: 0.15em;
+        }
+
+        .mono {
+            font-family: 'DM Mono', monospace;
+        }
+
+        .cormorant {
+            font-family: 'Cormorant Garamond', serif;
+        }
+
+        .italic {
+            font-style: italic;
+        }
+
+        /* --- LAYOUT UTILS --- */
+        .container {
+            max-width: 1400px;
+            width: 100%;
+            margin: 0 auto;
+            padding-left: 40px;
+            padding-right: 40px;
+            overflow-x: hidden;
+        }
+
+        .section-padding {
+            padding-top: 120px;
+            padding-bottom: 120px;
+        }
+
+        .flex-center {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            flex-direction: column;
+        }
+
+        /* --- ANTI-GRAVITY SYSTEM --- */
+        .floating-card {
+            background: var(--color-bg-surface);
+            border: 0.5px solid var(--color-border);
+            border-radius: 2px;
+            padding: 40px;
+            transform: translateY(0);
+            transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1),
+                box-shadow 0.4s ease, border-color 0.4s ease;
+            position: relative;
+            z-index: 1;
+            will-change: transform;
+        }
+
+        .floating-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 24px 60px rgba(0, 0, 0, 0.5),
+                0 0 0 0.5px var(--color-primary),
+                0 0 30px var(--color-primary-glow);
+            border-color: var(--color-primary);
+            z-index: 2;
+        }
+
+        /* --- REVEAL EFFECTS --- */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: var(--transition-reveal);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Staggered Entrance */
+        .reveal-stagger>*:nth-child(1) {
+            transition-delay: 0.1s;
+        }
+
+        .reveal-stagger>*:nth-child(2) {
+            transition-delay: 0.2s;
+        }
+
+        .reveal-stagger>*:nth-child(3) {
+            transition-delay: 0.3s;
+        }
+
+        .reveal-stagger>*:nth-child(4) {
+            transition-delay: 0.4s;
+        }
+
+        .reveal-stagger>*:nth-child(5) {
+            transition-delay: 0.5s;
+        }
+
+        .reveal-stagger>*:nth-child(6) {
+            transition-delay: 0.6s;
+        }
+
+        /* --- NAVIGATION --- */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 90px;
+            background: rgba(8, 10, 15, 0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 0.5px solid var(--color-border);
+            z-index: 1000;
+            transition: var(--transition-main);
+        }
+
+        html.light header {
+            background: rgba(249, 247, 243, 0.85);
+        }
+
+        .nav-inner {
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo-box {
+            display: flex;
+            flex-direction: column;
+            line-height: 1;
+        }
+
+        .logo-wordmark {
+            font-size: 28px;
+            color: var(--color-text-primary);
+        }
+
+        .logo-studio {
+            font-size: 14px;
+            color: var(--color-primary);
+            text-transform: lowercase;
+            margin-top: -2px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 40px;
+        }
+
+        .nav-link {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: var(--color-text-muted);
+            position: relative;
+            padding: 10px 0;
+        }
+
+        .nav-link::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--color-primary);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after,
+        .nav-link.active::after {
+            width: 100%;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--color-primary);
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .icon-btn {
+            background: transparent;
+            color: var(--color-text-muted);
+            padding: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .icon-btn:hover {
+            color: var(--color-primary);
+        }
+
+        .cta-btn-sm {
+            border: 0.5px solid var(--color-primary);
+            color: var(--color-primary);
+            padding: 10px 20px;
+            font-family: 'Bebas Neue';
+            font-size: 12px;
+            letter-spacing: 0.1em;
+            background: transparent;
+        }
+
+        .cta-btn-sm:hover {
+            background: var(--color-primary-dim);
+            transform: translateY(-2px);
+        }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            height: 100vh;
+            position: relative;
+            background-image: url('https://raw.githubusercontent.com/nazimboudeffa/assets2/main/pics/unsplash/c-d-x-PDX_a_82obo-unsplash.jpg');
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(8, 10, 15, 0.4) 0%, rgba(8, 10, 15, 0.95) 100%);
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 900px;
+            text-align: center;
+        }
+
+        .hero-tagline {
+            color: var(--color-primary);
+            font-size: 14px;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .hero h1 {
+            font-size: clamp(48px, 8vw, 80px);
+            line-height: 1.1;
+            margin-bottom: 30px;
+        }
+
+        .hero p {
+            font-size: 16px;
+            color: var(--color-text-muted);
+            max-width: 600px;
+            margin: 0 auto 40px auto;
+        }
+
+        /* Scanline Animation */
+        .scanline {
+            position: absolute;
+            top: -100%;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            background: linear-gradient(to bottom, transparent, var(--color-primary-dim), transparent);
+            z-index: 10;
+            pointer-events: none;
+            opacity: 0.5;
+            animation: scan 4s infinite linear;
+        }
+
+        @keyframes scan {
+            0% {
+                top: -10%;
+            }
+
+            100% {
+                top: 110%;
+            }
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-block;
+            padding: 14px 32px;
+            font-family: 'Bebas Neue';
+            letter-spacing: 0.15em;
+            border-radius: 2px;
+            text-transform: uppercase;
+            font-size: 16px;
+            transition: var(--transition-main);
+        }
+
+        .btn-primary {
+            background: var(--color-primary);
+            color: #080A0F;
+        }
+
+        .btn-primary:hover {
+            background: #E0BE6A;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(201, 168, 76, 0.3);
+        }
+
+        .btn-ghost {
+            background: transparent;
+            border: 0.5px solid var(--color-primary);
+            color: var(--color-primary);
+            margin-left: 20px;
+        }
+
+        .btn-ghost:hover {
+            background: var(--color-primary-dim);
+            transform: translateY(-2px);
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            z-index: 2;
+        }
+
+        .scroll-line {
+            width: 1px;
+            height: 60px;
+            background: linear-gradient(to bottom, var(--color-primary), transparent);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .scroll-line::after {
+            content: "";
+            position: absolute;
+            top: -100%;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #fff;
+            animation: scrollPulse 2s infinite ease-in-out;
+        }
+
+        @keyframes scrollPulse {
+            0% {
+                top: -100%;
+            }
+
+            100% {
+                top: 100%;
+            }
+        }
+
+        /* --- SERVICES --- */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            margin-top: 60px;
+        }
+
+        .service-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .service-card i {
+            margin-bottom: 25px;
+            color: var(--color-text-muted);
+        }
+
+        .service-card h3 {
+            font-size: 28px;
+            margin-bottom: 15px;
+        }
+
+        .service-card p {
+            color: var(--color-text-muted);
+            font-size: 14px;
+            max-width: 320px;
+        }
+
+        .offering-card {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 40px;
+            align-items: center;
+            padding: 60px;
+        }
+
+        /* --- ABOUT --- */
+        .about-split {
+            display: flex;
+            align-items: center;
+            gap: 80px;
+        }
+
+        .about-image {
+            flex: 1;
+            height: 600px;
+            background-image: url('https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?auto=format&fit=crop&q=80&w=800');
+            background-size: cover;
+            background-position: center;
+            border: 0.5px solid var(--color-border);
+        }
+
+        .about-text {
+            flex: 1;
+        }
+
+        .section-label {
+            color: var(--color-primary);
+            font-size: 14px;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .about-text h2 {
+            font-size: 56px;
+            line-height: 1.1;
+            margin-bottom: 30px;
+        }
+
+        .about-text p {
+            margin-bottom: 30px;
+            font-size: 15px;
+        }
+
+        .stats-row {
+            display: flex;
+            gap: 20px;
+            margin-top: 50px;
+        }
+
+        .stat-card {
+            flex: 1;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .stat-val {
+            font-family: 'Bebas Neue';
+            font-size: 32px;
+            color: var(--color-primary);
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--color-text-muted);
+        }
+
+        .gold-underline {
+            display: inline-block;
+            margin-top: 40px;
+            color: var(--color-primary);
+            font-family: 'Bebas Neue';
+            letter-spacing: 0.1em;
+            position: relative;
+        }
+
+        .gold-underline::after {
+            content: "";
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 40px;
+            height: 1px;
+            background: var(--color-primary);
+            transition: width 0.3s ease;
+        }
+
+        .gold-underline:hover::after {
+            width: 100%;
+        }
+
+        /* --- PROJECTS --- */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 60px;
+        }
+
+        .project-card {
+            height: 450px;
+            padding: 0;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            align-items: center;
+            text-align: center;
+        }
+
+        .project-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            transition: transform 0.6s ease;
+            z-index: -1;
+        }
+
+        .project-card:hover .project-bg {
+            transform: scale(1.05);
+        }
+
+        .project-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to top, rgba(8, 10, 15, 0.9) 0%, transparent 60%);
+            z-index: 0;
+        }
+
+        .project-content {
+            position: relative;
+            z-index: 1;
+            padding: 40px;
+            width: 100%;
+        }
+
+        .project-genre {
+            color: var(--color-primary);
+            font-size: 12px;
+            margin-bottom: 10px;
+        }
+
+        .project-title {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .project-meta {
+            font-size: 12px;
+            color: var(--color-text-muted);
+        }
+
+        .project-hover-cta {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(201, 168, 76, 0.15);
+            backdrop-filter: blur(4px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: var(--transition-main);
+            z-index: 2;
+        }
+
+        .project-card:hover .project-hover-cta {
+            opacity: 1;
+        }
+
+        /* --- TESTIMONIALS --- */
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 60px;
+        }
+
+        .testimonial-card {
+            padding: 50px 40px;
+        }
+
+        .quote-icon {
+            font-size: 80px;
+            color: var(--color-primary);
+            font-family: 'Cormorant Garamond';
+            line-height: 0.5;
+            margin-bottom: 20px;
+            opacity: 0.6;
+        }
+
+        .quote-text {
+            font-size: 16px;
+            margin-bottom: 30px;
+            font-style: italic;
+        }
+
+        .client-info {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .client-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: 1px solid var(--color-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Bebas Neue';
+            color: var(--color-primary);
+        }
+
+        .client-name {
+            font-size: 18px;
+            color: var(--color-text-primary);
+        }
+
+        .client-role {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--color-text-faint);
+        }
+
+        /* --- CTA BANNER --- */
+        .cta-banner {
+            background-color: var(--color-bg-surface);
+            border-top: 1px solid var(--color-primary);
+            border-bottom: 1px solid var(--color-primary);
+            padding: 100px 0;
+            position: relative;
+        }
+
+        .cta-banner h2 {
+            font-size: 56px;
+            margin-bottom: 20px;
+        }
+
+        .cta-banner p {
+            font-size: 18px;
+            color: var(--color-text-muted);
+            margin-bottom: 40px;
+        }
+
+        /* --- CONTACT PAGE --- */
+        .contact-layout {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 60px;
+            margin-top: 60px;
+        }
+
+        .contact-info-cards {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .contact-info-card {
+            padding: 30px;
+            display: flex;
+            align-items: center;
+            gap: 25px;
+            flex-direction: row;
+            text-align: left;
+        }
+
+        .contact-info-card i {
+            color: var(--color-primary);
+        }
+
+        .contact-form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .form-group.full {
+            grid-column: span 2;
+        }
+
+        label {
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: var(--color-text-faint);
+        }
+
+        input,
+        select,
+        textarea {
+            background: var(--color-bg-void);
+            border: 0.5px solid var(--color-border);
+            padding: 15px;
+            color: var(--color-text-primary);
+            font-family: inherit;
+            border-radius: 2px;
+            transition: var(--transition-main);
+        }
+
+        input:focus,
+        textarea:focus {
+            outline: none;
+            border-color: var(--color-primary);
+            box-shadow: 0 0 10px var(--color-primary-glow);
+        }
+
+        .map-container {
+            margin-top: 60px;
+            height: 400px;
+            border: 0.5px solid var(--color-border);
+            filter: invert(90%) hue-rotate(180deg);
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            background: var(--color-bg-void);
+            border-top: 0.5px solid var(--color-primary);
+            padding-top: 80px;
+            padding-bottom: 40px;
+            margin: 0;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1.5fr;
+            gap: 60px;
+            margin-bottom: 60px;
+        }
+
+        .footer-col h4 {
+            font-family: 'Bebas Neue';
+            font-size: 16px;
+            letter-spacing: 0.1em;
+            color: var(--color-text-primary);
+            margin-bottom: 30px;
+        }
+
+        .footer-links li {
+            margin-bottom: 15px;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            border: 0.5px solid var(--color-border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition-main);
+        }
+
+        .social-link:hover {
+            transform: scale(1.1);
+        }
+
+        .social-fb:hover {
+            background: #1877F2;
+            border-color: #1877F2;
+            color: #fff;
+        }
+
+        .social-ig:hover {
+            background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+            border-color: transparent;
+            color: #fff;
+        }
+
+        .social-tw:hover {
+            background: #000;
+            border-color: #000;
+            color: #fff;
+        }
+
+        .social-li:hover {
+            background: #0A66C2;
+            border-color: #0A66C2;
+            color: #fff;
+        }
+
+        .copyright {
+            padding-top: 40px;
+            border-top: 0.5px solid var(--color-border);
+            text-align: center;
+            font-size: 11px;
+            color: var(--color-text-faint);
+        }
+
+        /* --- MOBILE NAV & RTL --- */
+        .hamburger {
+            display: none;
+        }
+
+        body.rtl {
+            direction: rtl;
+            text-align: right;
+        }
+
+        body.rtl .nav-inner {
+            flex-direction: row-reverse;
+        }
+
+        body.rtl .nav-links {
+            flex-direction: row-reverse;
+        }
+
+        body.rtl .footer-grid {
+            direction: rtl;
+        }
+
+        body.rtl .about-split {
+            flex-direction: row-reverse;
+        }
+
+        /* Sidebar Overlay */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: -350px;
+            width: 300px;
+            height: 100%;
+            background: var(--color-bg-surface);
+            z-index: 1001;
+            padding: 40px;
+            transition: left 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+            box-shadow: 20px 0 60px rgba(0, 0, 0, 0.5);
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .sidebar.active {
+            left: 0;
+        }
+
+        .overlay-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            display: none;
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 1024px) {
+            .projects-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .about-split {
+                gap: 40px;
+            }
+        }
+
+        @media (max-width: 768px) {
+
+            .nav-links,
+            .nav-actions .cta-btn-sm {
+                display: none;
+            }
+
+            .hamburger {
+                display: block;
+            }
+
+            .header {
+                height: 70px;
+            }
+
+            .services-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .offering-card {
+                grid-template-columns: 1fr;
+                text-align: center;
+                padding: 40px 20px;
+            }
+
+            /* STRICT 2x2 */
+            .projects-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .testimonial-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .about-split {
+                flex-direction: column;
+            }
+
+            .about-image {
+                width: 100%;
+                height: 400px;
+            }
+
+            .footer-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .contact-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .hero h1 {
+                font-size: 48px;
+            }
+
+            .flex-center h2.italic {
+                font-size: 40px !important;
+            }
+
+            .contact-info-cards {
+                gap: 40px !important;
+            }
+
+            .contact-info-card {
+                padding: 30px 20px;
+                gap: 15px;
+                flex-direction: column;
+                text-align: center;
+                margin-bottom: 20px;
+            }
+
+            .contact-info-card div p {
+                font-size: 11px;
+            }
+
+            .contact-form {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .premium-about-grid {
+                grid-template-columns: 1fr !important;
+                gap: 40px !important;
+            }
+
+            .premium-services-grid {
+                grid-template-columns: 1fr !important;
+            }
+
+            .premium-cta {
+                grid-template-columns: 1fr !important;
+            }
+
+            .premium-cta>div {
+                padding: 60px 40px !important;
+                min-height: 400px;
+            }
+
+            .projects-unique-grid {
+                grid-template-columns: 1fr !important;
+            }
+
+            .accordion-container {
+                flex-direction: column;
+                height: 800px;
+            }
+
+            .accordion-card {
+                min-height: 200px;
+            }
+
+            .accordion-title-vertical {
+                writing-mode: horizontal-tb;
+                transform: none;
+                top: auto;
+                bottom: 20px;
+                right: 20px;
+            }
+        }
+
+        @media (max-width: 360px) {
+
+            .services-grid,
+            .projects-grid,
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .container {
+                padding-left: 20px;
+                padding-right: 20px;
+            }
+
+            .hero h1 {
+                font-size: 40px;
+            }
+
+            .about-text h2 {
+                font-size: 40px;
+            }
+
+            .cta-banner h2 {
+                font-size: 40px;
+            }
+        }
+
+        /* View Switching Logic Handled via JS classes on view-containers */
+
+        /* --- UNIQUE ANIMATIONS FOR PROJECTS PAGE --- */
+        /* 1. Wipe Reveal */
+        .wipe-reveal {
+            clip-path: inset(0 100% 0 0);
+            transition: clip-path 1.2s cubic-bezier(0.85, 0, 0.15, 1);
+        }
+
+        .reveal.active .wipe-reveal {
+            clip-path: inset(0 0 0 0);
+        }
+
+        /* 2. Accordion Flex Cards */
+        .accordion-container {
+            display: flex;
+            height: 400px;
+            gap: 10px;
+        }
+
+        .accordion-card {
+            flex: 1;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            transition: flex 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+            overflow: hidden;
+            display: flex;
+            align-items: flex-end;
+            padding: 20px;
+            cursor: pointer;
+        }
+
+        .accordion-card:hover {
+            flex: 3;
+        }
+
+        .accordion-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to top, rgba(8, 10, 15, 0.9) 0%, transparent 100%);
+            z-index: 1;
+        }
+
+        .accordion-content {
+            position: relative;
+            z-index: 2;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: var(--transition-main);
+            transition-delay: 0.1s;
+        }
+
+        .accordion-card:hover .accordion-content {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .accordion-title-vertical {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            z-index: 2;
+            writing-mode: vertical-rl;
+            text-orientation: mixed;
+            transform: rotate(180deg);
+            color: var(--color-primary);
+            font-family: 'Bebas Neue';
+            font-size: 20px;
+            letter-spacing: 0.2em;
+        }
+
+        /* 3. Infinite Marquee */
+        .marquee-wrapper {
+            overflow: hidden;
+            white-space: nowrap;
+            position: relative;
+            padding: 40px 0;
+            border-top: 1px solid var(--color-border);
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .marquee-content {
+            display: inline-block;
+            animation: marquee 20s linear infinite;
+        }
+
+        .marquee-item {
+            display: inline-block;
+            font-family: 'Bebas Neue';
+            font-size: 80px;
+            color: var(--color-text-primary);
+            margin-right: 60px;
+            -webkit-text-stroke: 1px var(--color-text-primary);
+            color: transparent;
+            transition: color 0.3s ease;
+        }
+
+        .marquee-item:hover {
+            color: var(--color-primary);
+            -webkit-text-stroke: 0;
+        }
+
+        @keyframes marquee {
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+        /* 4. Floating Elements */
+        .float-container {
+            position: relative;
+            height: 500px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .float-item {
+            position: absolute;
+            animation: float-anim 6s ease-in-out infinite;
+        }
+
+        .float-item:nth-child(even) {
+            animation-duration: 8s;
+            animation-direction: reverse;
+        }
+
+        @keyframes float-anim {
+            0% {
+                transform: translateY(0) rotate(0deg);
+            }
+
+            50% {
+                transform: translateY(-30px) rotate(5deg);
+            }
+
+            100% {
+                transform: translateY(0) rotate(0deg);
+            }
+        }
+
+        /* --- UNIQUE ANIMATIONS FOR ABOUT PAGE --- */
+        /* 1. Team Cards Scale */
+        .team-card {
+            transform: translateY(40px) scale(0.95);
+            opacity: 0;
+            transition: transform 0.8s cubic-bezier(0.23, 1, 0.32, 1), opacity 0.8s ease-out;
+        }
+
+        .reveal.active .team-card {
+            transform: translateY(0) scale(1);
+            opacity: 1;
+        }
+
+        /* 2. Vertical Timeline */
+        .timeline-container {
+            position: relative;
+            padding-left: 40px;
+            margin-top: 60px;
+        }
+
+        .timeline-line {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 2px;
+            height: 0;
+            background: var(--color-primary);
+            transition: height 1.5s cubic-bezier(0.85, 0, 0.15, 1);
+        }
+
+        .reveal.active .timeline-line {
+            height: 100%;
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 60px;
+            opacity: 0;
+            transform: translateX(-30px);
+            transition: all 0.6s ease-out;
+        }
+
+        .reveal.active .timeline-item {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .timeline-item::before {
+            content: "";
+            position: absolute;
+            left: -45px;
+            top: 5px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--color-bg-void);
+            border: 2px solid var(--color-primary);
+        }
+
+        /* 3. Pulse Dot */
+        .pulse-dot {
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: var(--color-primary);
+        }
+
+        .pulse-dot::after {
+            content: "";
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            border-radius: 50%;
+            border: 1px solid var(--color-primary);
+            animation: pulse-ring 2s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+        }
+
+        @keyframes pulse-ring {
+            0% {
+                transform: scale(0.5);
+                opacity: 1;
+            }
+
+            100% {
+                transform: scale(2);
+                opacity: 0;
+            }
+        }
+
+        /* --- UNIQUE ANIMATIONS FOR TOOLS PAGE --- */
+        /* 1. Hardware Parallax Zoom */
+        .hardware-bg {
+            transition: transform 1.2s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .reveal.active .hardware-bg {
+            transform: scale(1.05);
+        }
+
+        /* 2. Synth Rack Float */
+        .synth-card {
+            transform: translateY(40px) rotateX(5deg);
+            opacity: 0;
+            transition: all 1s cubic-bezier(0.215, 0.61, 0.355, 1);
+        }
+
+        .reveal.active .synth-card {
+            transform: translateY(0) rotateX(0deg);
+            opacity: 1;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="container nav-inner">
+            <a href="#" class="logo-box" onclick="showPage('home')">
+                <span class="logo-wordmark bebas">SOUNDFRAME</span>
+                <span class="logo-studio cormorant italic">Studio</span>
+            </a>
+
+            <nav class="nav-links">
+                <a href="#home" class="nav-link active" onclick="showPage('home')">Home</a>
+                <a href="#about" class="nav-link" onclick="showPage('about')">About</a>
+                <a href="#tools" class="nav-link" onclick="showPage('tools')">Tools or Techs</a>
+                <a href="#services" class="nav-link" onclick="showPage('services')">Services</a>
+                <a href="#projects" class="nav-link" onclick="showPage('projects')">Portfolio</a>
+                <a href="#premium" class="nav-link" onclick="showPage('premium')">Premium</a>
+                <a href="#contact" class="nav-link" onclick="showPage('contact')">Contact</a>
+            </nav>
+
+            <div class="nav-actions">
+                <button class="icon-btn" onclick="toggleDarkMode()" title="Toggle Dark Mode">
+                    <i data-lucide="moon" class="theme-icon-el"></i>
+                </button>
+                <button class="icon-btn" onclick="toggleRTL()" title="Toggle RTL">
+                    <i data-lucide="languages"></i>
+                </button>
+                <a href="#login" class="cta-btn-sm" onclick="showPage('login')"
+                    style="background: transparent; border: 1px solid var(--color-primary); color: var(--color-primary);">Login</a>
+                <button class="icon-btn hamburger" onclick="toggleSidebar()">
+                    <i data-lucide="menu"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Sidebar (Mobile) -->
+    <div class="sidebar" id="sidebar">
+        <div class="logo-box">
+            <span class="logo-wordmark bebas">SOUNDFRAME</span>
+            <span class="logo-studio cormorant italic">Studio</span>
+        </div>
+        <nav style="display: flex; flex-direction: column; gap: 20px;">
+            <a href="#home" class="nav-link" onclick="showPage('home')">Home</a>
+            <a href="#about" class="nav-link" onclick="showPage('about')">About</a>
+            <a href="#tools" class="nav-link" onclick="showPage('tools')">Tools or Techs</a>
+            <a href="#services" class="nav-link" onclick="showPage('services')">Services</a>
+            <a href="#projects" class="nav-link" onclick="showPage('projects')">Portfolio</a>
+            <a href="#premium" class="nav-link" onclick="showPage('premium')">Premium</a>
+            <a href="#contact" class="nav-link" onclick="showPage('contact')">Contact</a>
+            <a href="#login" class="cta-btn-sm" onclick="showPage('login')"
+                style="text-align: center; margin-top: 10px; background: transparent; border: 1px solid var(--color-primary); color: var(--color-primary);">Login</a>
+        </nav>
+        <div style="margin-top: auto; display: flex; gap: 20px;">
+            <button class="icon-btn" onclick="toggleDarkMode()"><i data-lucide="moon"></i></button>
+            <button class="icon-btn" onclick="toggleRTL()"><i data-lucide="languages"></i></button>
+        </div>
+    </div>
+    <div class="overlay-bg" id="overlay" onclick="toggleSidebar()"></div>
+
+    <!-- MAIN VIEWS -->
+    <main>
+
+        <!-- PAGE 1: HOME (COMPOSITE) -->
+        <div id="home-view" class="view-container">
+
+            <!-- Hero -->
+            <section id="hero" class="hero" style="display: flex;">
+                <div class="scanline"></div>
+                <div class="hero-overlay"></div>
+                <div class="container hero-content">
+                    <span class="hero-tagline bebas reveal">MUSIC SUPERVISOR · FILM & TELEVISION</span>
+                    <h1 class="cormorant italic reveal">Every Scene Has a Frequency</h1>
+                    <p class="mono reveal">Crafting sonic landscapes for global cinema and television. Where the visual
+                        meets the vibrational.</p>
+                    <div class="hero-btns reveal">
+                        <a href="#projects" class="btn btn-primary" onclick="showPage('projects')">Explore Work</a>
+                        <a href="#contact" class="btn btn-ghost" onclick="showPage('contact')">Start A Project</a>
+                    </div>
+                </div>
+                <div class="scroll-indicator">
+                    <div class="scroll-line"></div>
+                </div>
+            </section>
+
+            <!-- Services -->
+            <section id="services" class="section-padding container reveal" style="display: block;">
+                <div class="flex-center">
+                    <span class="section-label bebas">EXPERTISE</span>
+                    <h2 class="italic" style="font-size: 56px; margin-bottom: 20px;">Curating Emotion</h2>
+                </div>
+                <div class="services-grid">
+                    <div class="floating-card service-card">
+                        <i data-lucide="music-4" size="48"></i>
+                        <h3 class="cormorant">Soundtrack Curation</h3>
+                        <p class="mono">Hand-picked sonic textures that breathe life into every frame, ensuring
+                            emotional resonance.</p>
+                    </div>
+                    <div class="floating-card service-card">
+                        <i data-lucide="file-check" size="48"></i>
+                        <h3 class="cormorant">Licensing & Clearance</h3>
+                        <p class="mono">Navigating the complex world of music rights with precision and global industry
+                            expertise.</p>
+                    </div>
+                    <div class="floating-card service-card">
+                        <i data-lucide="mic-2" size="48"></i>
+                        <h3 class="cormorant">Original Score</h3>
+                        <p class="mono">Coordinating with world-class composers to develop bespoke orchestral and
+                            electronic scores.</p>
+                    </div>
+                    <div class="floating-card service-card">
+                        <i data-lucide="target" size="48"></i>
+                        <h3 class="cormorant">Sync Strategy</h3>
+                        <p class="mono">Building strategic partnerships between artists and platforms for maximum
+                            cultural impact.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- About Short -->
+            <section id="about-intro" class="section-padding container reveal" style="display: block;">
+                <div class="about-split">
+                    <div class="about-image floating-card"></div>
+                    <div class="about-text">
+                        <span class="section-label bebas">THE SUPERVISOR</span>
+                        <h2 class="italic">Two Decades of Cinematic Sound</h2>
+                        <p class="mono">Based in the heart of the industry, SoundFrame Studio has been the secret
+                            architect behind some of the most memorable musical moments in recent cinema.</p>
+                        <p class="mono">We believe that music shouldn't just accompany a scene—it should complete it.
+                            From indie darlings to blockbuster franchises, our philosophy remains the same: find the
+                            frequency that matters.</p>
+                        <div class="stats-row">
+                            <div class="floating-card stat-card">
+                                <span class="stat-val">200+</span>
+                                <span class="stat-label">Projects</span>
+                            </div>
+                            <div class="floating-card stat-card">
+                                <span class="stat-val">47</span>
+                                <span class="stat-label">Networks</span>
+                            </div>
+                            <div class="floating-card stat-card">
+                                <span class="stat-val">12</span>
+                                <span class="stat-label">Awards</span>
+                            </div>
+                        </div>
+                        <a href="#" class="gold-underline" onclick="showPage('about')">View Full Credits →</a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Featured Projects (6) -->
+            <section id="featured-projects" class="section-padding container reveal" style="display: block;">
+                <div class="flex-center">
+                    <span class="section-label bebas">PORTFOLIO</span>
+                    <h2 class="italic" style="font-size: 56px; margin-bottom: 20px;">Selected Works</h2>
+                </div>
+                <div class="projects-grid">
+                    <!-- Project 1 -->
+                    <div class="floating-card project-card">
+                        <div class="project-bg"
+                            style="background-image: url('https://images.unsplash.com/photo-1536440136628-849c177e76a1?auto=format&fit=crop&q=80&w=800');">
+                        </div>
+                        <div class="project-overlay"></div>
+                        <div class="project-content">
+                            <span class="project-genre bebas">DRAMA SERIES</span>
+                            <h3 class="project-title italic">Beneath the Static</h3>
+                            <p class="project-meta mono">Netflix · 2024</p>
+                        </div>
+                        <div class="project-hover-cta bebas">View Project</div>
+                    </div>
+                    <!-- Project 2 -->
+                    <div class="floating-card project-card">
+                        <div class="project-bg"
+                            style="background-image: url('https://images.unsplash.com/photo-1440404653325-ab127d49abc1?auto=format&fit=crop&q=80&w=800');">
+                        </div>
+                        <div class="project-overlay"></div>
+                        <div class="project-content">
+                            <span class="project-genre bebas">FEATURE FILM</span>
+                            <h3 class="project-title italic">Hollow Meridian</h3>
+                            <p class="project-meta mono">A24 · 2023</p>
+                        </div>
+                        <div class="project-hover-cta bebas">View Project</div>
+                    </div>
+                    <!-- Project 3 -->
+                    <div class="floating-card project-card">
+                        <div class="project-bg"
+                            style="background-image: url('https://images.unsplash.com/photo-1485846234645-a62644f84728?auto=format&fit=crop&q=80&w=800');">
+                        </div>
+                        <div class="project-overlay"></div>
+                        <div class="project-content">
+                            <span class="project-genre bebas">DOCUMENTARY</span>
+                            <h3 class="project-title italic">The Frequency</h3>
+                            <p class="project-meta mono">HBO · 2023</p>
+                        </div>
+                        <div class="project-hover-cta bebas">View Project</div>
+                    </div>
+                    <!-- Project 4 -->
+                    <div class="floating-card project-card">
+                        <div class="project-bg"
+                            style="background-image: url('https://images.unsplash.com/photo-1478720568477-152d9b164e26?auto=format&fit=crop&q=80&w=800');">
+                        </div>
+                        <div class="project-overlay"></div>
+                        <div class="project-content">
+                            <span class="project-genre bebas">THRILLER</span>
+                            <h3 class="project-title italic">Burn Sequence</h3>
+                            <p class="project-meta mono">Amazon · 2022</p>
+                        </div>
+                        <div class="project-hover-cta bebas">View Project</div>
+                    </div>
+                    <!-- Project 5 -->
+                    <div class="floating-card project-card">
+                        <div class="project-bg"
+                            style="background-image: url('https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&q=80&w=800');">
+                        </div>
+                        <div class="project-overlay"></div>
+                        <div class="project-content">
+                            <span class="project-genre bebas">SHORT FILM</span>
+                            <h3 class="project-title italic">Last Signal</h3>
+                            <p class="project-meta mono">Sundance · 2022</p>
+                        </div>
+                        <div class="project-hover-cta bebas">View Project</div>
+                    </div>
+                    <!-- Project 6 -->
+                    <div class="floating-card project-card">
+                        <div class="project-bg"
+                            style="background-image: url('https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?auto=format&fit=crop&q=80&w=800');">
+                        </div>
+                        <div class="project-overlay"></div>
+                        <div class="project-content">
+                            <span class="project-genre bebas">AD CAMPAIGN</span>
+                            <h3 class="project-title italic">Resonance</h3>
+                            <p class="project-meta mono">Cannes · 2021</p>
+                        </div>
+                        <div class="project-hover-cta bebas">View Project</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Testimonials -->
+            <section id="testimonials" class="section-padding container reveal" style="display: block;">
+                <div class="flex-center">
+                    <span class="section-label bebas">REPUTATION</span>
+                    <h2 class="italic" style="font-size: 56px; margin-bottom: 20px;">Industry Voices</h2>
+                </div>
+                <div class="testimonial-grid">
+                    <div class="floating-card testimonial-card flex-center">
+                        <div class="quote-icon">“</div>
+                        <p class="quote-text mono">“SoundFrame doesn't just find songs; they find the soul of the
+                            project. Working with them transformed our series.”</p>
+                        <div class="client-info">
+                            <div class="client-avatar">EM</div>
+                            <div>
+                                <h4 class="client-name cormorant">Elena Moretti</h4>
+                                <p class="client-role mono">Showrunner, Netflix</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="floating-card testimonial-card flex-center">
+                        <div class="quote-icon">“</div>
+                        <p class="quote-text mono">“The licensing process was seamless. They saved us months of
+                            negotiation while hitting every creative cue.”</p>
+                        <div class="client-info">
+                            <div class="client-avatar">JD</div>
+                            <div>
+                                <h4 class="client-name cormorant">Julian De Vos</h4>
+                                <p class="client-role mono">Producer, A24</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="floating-card testimonial-card flex-center">
+                        <div class="quote-icon">“</div>
+                        <p class="quote-text mono">“In twenty years of directing, I’ve never seen a team with such an
+                            intuitive grasp of narrative rhythm.”</p>
+                        <div class="client-info">
+                            <div class="client-avatar">SK</div>
+                            <div>
+                                <h4 class="client-name cormorant">Sarah Kincaid</h4>
+                                <p class="client-role mono">Director, HBO</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CTA Banner -->
+            <section class="cta-banner reveal" style="display: block;">
+                <div class="container flex-center">
+                    <h2 class="italic">Let's Score Your Next Project</h2>
+                    <p class="mono">Collaboration begins with a conversation. Let’s find your sound.</p>
+                    <a href="#contact" class="btn btn-primary" onclick="showPage('contact')">Get In Touch</a>
+                </div>
+            </section>
+
+        </div>
+
+        <!-- PAGE 2: HOME PREMIUM -->
+        <div id="premium-view" class="view-container" style="display: none;">
+            <!-- Premium Hero -->
+            <section class="hero" style="display: flex;">
+                <div class="scanline"></div>
+                <div class="hero-overlay"
+                    style="background: linear-gradient(to right, rgba(8,10,15,0.9) 30%, transparent 100%);"></div>
+                <div class="container hero-content" style="text-align: left; margin-left: 0;">
+                    <span class="hero-tagline bebas reveal" style="text-align: left;">PREMIUM PRODUCTION</span>
+                    <h1 class="cormorant italic reveal" style="text-align: left; font-size: clamp(60px, 10vw, 100px);">
+                        Scoring the Singular</h1>
+                    <p class="mono reveal" style="text-align: left; margin: 0 0 40px 0;">A boutique approach to global
+                        soundtracks. We define the sonic identity of the world's most evocative films.</p>
+                    <a href="#projects" class="btn btn-primary" onclick="showPage('projects')">View Collections</a>
+                </div>
+            </section>
+
+            <!-- Premium Services (Numbered) -->
+            <section class="section-padding container reveal">
+                <div class="flex-center">
+                    <span class="section-label bebas">PROCEDURE</span>
+                    <h2 class="italic" style="font-size: 56px; margin-bottom: 60px;">Our Methodology</h2>
+                </div>
+                <div class="premium-services-grid"
+                    style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 60px;">
+                    <div class="reveal-stagger" style="display: flex; gap: 30px; align-items: flex-start;">
+                        <span class="cormorant"
+                            style="font-size: 64px; color: var(--color-primary); line-height: 0.8;">01</span>
+                        <div>
+                            <h3 style="font-size: 24px; margin-bottom: 10px;">Discovery</h3>
+                            <p class="mono" style="font-size: 14px;">Deep dives into script, tonality, and emotional
+                                subtext before a single note is selected.</p>
+                        </div>
+                    </div>
+                    <div class="reveal-stagger" style="display: flex; gap: 30px; align-items: flex-start;">
+                        <span class="cormorant"
+                            style="font-size: 64px; color: var(--color-primary); line-height: 0.8;">02</span>
+                        <div>
+                            <h3 style="font-size: 24px; margin-bottom: 10px;">Curation</h3>
+                            <p class="mono" style="font-size: 14px;">Leveraging global network of indie artists and
+                                major labels to find the "Impossible Song."</p>
+                        </div>
+                    </div>
+                    <div class="reveal-stagger" style="display: flex; gap: 30px; align-items: flex-start;">
+                        <span class="cormorant"
+                            style="font-size: 64px; color: var(--color-primary); line-height: 0.8;">03</span>
+                        <div>
+                            <h3 style="font-size: 24px; margin-bottom: 10px;">Negotiation</h3>
+                            <p class="mono" style="font-size: 14px;">Unrivaled expertise in licensing, ensuring budget
+                                protection and legal clarity.</p>
+                        </div>
+                    </div>
+                    <div class="reveal-stagger" style="display: flex; gap: 30px; align-items: flex-start;">
+                        <span class="cormorant"
+                            style="font-size: 64px; color: var(--color-primary); line-height: 0.8;">04</span>
+                        <div>
+                            <h3 style="font-size: 24px; margin-bottom: 10px;">Delivery</h3>
+                            <p class="mono" style="font-size: 14px;">High-resolution master management and integration
+                                coordination for the final mix.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Premium About (Editorial) -->
+            <section class="section-padding" style="background: var(--color-bg-surface);">
+                <div class="container premium-about-grid"
+                    style="display: grid; grid-template-columns: 1fr 1fr; gap: 100px; align-items: center;">
+                    <div class="reveal">
+                        <span class="section-label bebas">EDITORIAL</span>
+                        <h2 class="italic" style="font-size: 48px; margin-bottom: 30px;">The Invisible Hand of the
+                            Soundtrack</h2>
+                        <p class="mono" style="font-size: 16px; margin-bottom: 40px; line-height: 2;">SoundFrame Studio
+                            doesn't work for the movie; we work for the moment. Each selection is a calculated risk, a
+                            poetic insertion designed to trigger memory and emotion in equal measure.</p>
+                        <div style="display: flex; gap: 40px;">
+                            <div>
+                                <h4 class="bebas" style="color: var(--color-primary);">MARCUS VANE</h4>
+                                <p class="mono" style="font-size: 11px;">FOUNDER & CEO</p>
+                            </div>
+                            <div style="border-left: 1px solid var(--color-border); padding-left: 40px;">
+                                <h4 class="bebas">20+ YRS</h4>
+                                <p class="mono" style="font-size: 11px;">EXPERIENCE</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="floating-card reveal"
+                        style="padding: 0; height: 500px; background-image: url('https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?auto=format&fit=crop&q=80&w=800'); background-size: cover; background-position: center;">
+                        <div
+                            style="position: absolute; bottom: 40px; right: 40px; background: var(--color-bg-void); padding: 20px; border: 0.5px solid var(--color-primary);">
+                            <span class="bebas" style="color: var(--color-primary);">THE LAB</span>
+                            <p class="mono" style="font-size: 10px;">LONDON · LA · PARIS</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- Premium Projects (Filmstrip) -->
+            <section class="section-padding premium-projects reveal" style="padding-bottom: 60px;">
+                <div class="container" style="margin-bottom: 40px;">
+                    <span class="section-label bebas">PORTFOLIO</span>
+                    <h2 class="italic" style="font-size: 48px;">The Filmstrip</h2>
+                </div>
+                <div class="filmstrip-container hide-scrollbar"
+                    style="display: flex; gap: 30px; overflow-x: auto; padding: 0 40px 60px; scroll-snap-type: x mandatory; scrollbar-width: none; -ms-overflow-style: none;">
+                    <!-- Project 1 -->
+                    <div class="floating-card project-card"
+                        style="min-width: 400px; scroll-snap-align: start; flex-shrink: 0;">
+                        <div class="project-bg"
+                            style="background-image: url('https://images.unsplash.com/photo-1536440136628-849c177e76a1?auto=format&fit=crop&q=80&w=800');">
+                        </div>
+                        <div class="project-overlay"></div>
+                        <div class="project-content">
+                            <span class="project-genre bebas">DRAMA SERIES</span>
+                            <h3 class="project-title italic">Beneath the Static</h3>
+                            <p class="project-meta mono">Netflix · 2024</p>
+                        </div>
+                        <div class="project-hover-cta bebas">View Project</div>
+                    </div>
+                    <!-- Project 2 -->
+                    <div class="floating-card project-card"
+                        style="min-width: 400px; scroll-snap-align: start; flex-shrink: 0;">
+                        <div class="project-bg"
+                            style="background-image: url('https://images.unsplash.com/photo-1440404653325-ab127d49abc1?auto=format&fit=crop&q=80&w=800');">
+                        </div>
+                        <div class="project-overlay"></div>
+                        <div class="project-content">
+                            <span class="project-genre bebas">FEATURE FILM</span>
+                            <h3 class="project-title italic">Hollow Meridian</h3>
+                            <p class="project-meta mono">A24 · 2023</p>
+                        </div>
+                        <div class="project-hover-cta bebas">View Project</div>
+                    </div>
+                    <!-- Project 3 -->
+                    <div class="floating-card project-card"
+                        style="min-width: 400px; scroll-snap-align: start; flex-shrink: 0;">
+                        <div class="project-bg"
+                            style="background-image: url('https://images.unsplash.com/photo-1485846234645-a62644f84728?auto=format&fit=crop&q=80&w=800');">
+                        </div>
+                        <div class="project-overlay"></div>
+                        <div class="project-content">
+                            <span class="project-genre bebas">DOCUMENTARY</span>
+                            <h3 class="project-title italic">The Frequency</h3>
+                            <p class="project-meta mono">HBO · 2023</p>
+                        </div>
+                        <div class="project-hover-cta bebas">View Project</div>
+                    </div>
+                    <!-- Project 4 -->
+                    <div class="floating-card project-card"
+                        style="min-width: 400px; scroll-snap-align: start; flex-shrink: 0;">
+                        <div class="project-bg"
+                            style="background-image: url('https://images.unsplash.com/photo-1478720568477-152d9b164e26?auto=format&fit=crop&q=80&w=800');">
+                        </div>
+                        <div class="project-overlay"></div>
+                        <div class="project-content">
+                            <span class="project-genre bebas">THRILLER</span>
+                            <h3 class="project-title italic">Burn Sequence</h3>
+                            <p class="project-meta mono">Amazon · 2022</p>
+                        </div>
+                        <div class="project-hover-cta bebas">View Project</div>
+                    </div>
+                    <!-- Empty space for scroll padding -->
+                    <div style="min-width: 10px; flex-shrink: 0;"></div>
+                </div>
+            </section>
+
+            <!-- Premium Testimonial (Rotating Quote) -->
+            <section class="section-padding container reveal"
+                style="text-align: center; max-width: 900px; min-height: 50vh; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                <span class="section-label bebas">REPUTATION</span>
+                <div class="quote-carousel" style="margin-top: 40px; position: relative; width: 100%;">
+                    <div class="quote-icon" style="font-size: 100px; padding: 0; line-height: 0.5;">“</div>
+                    <h2 class="cormorant italic" style="font-size: 48px; line-height: 1.4; margin: 30px 0 40px;">
+                        "SoundFrame doesn't just find songs; they find the soul of the project. Working with them
+                        transformed our entire series."</h2>
+                    <div class="client-info" style="justify-content: center; margin-top: 20px;">
+                        <h4 class="bebas"
+                            style="font-size: 20px; color: var(--color-primary); letter-spacing: 0.1em; margin: 0;">
+                            ELENA MORETTI</h4>
+                        <span style="color: var(--color-border); margin: 0 15px;">|</span>
+                        <p class="mono"
+                            style="font-size: 12px; letter-spacing: 0.2em; color: var(--color-text-faint); margin: 0;">
+                            SHOWRUNNER, NETFLIX</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Premium CTA (Split Screen) -->
+            <section class="premium-cta reveal"
+                style="display: grid; grid-template-columns: 1fr 1fr; border-top: 0.5px solid var(--color-primary);">
+                <div
+                    style="padding: 120px 80px; display: flex; flex-direction: column; justify-content: center; background: var(--color-bg-surface);">
+                    <h2 class="cormorant italic" style="font-size: 56px; margin-bottom: 30px;">Let's Score Your Next
+                        Project</h2>
+                    <p class="mono" style="margin-bottom: 40px; max-width: 400px;">Collaboration begins with a
+                        conversation. We're ready to find your sound.</p>
+                    <div>
+                        <a href="#contact" class="btn btn-primary" onclick="showPage('contact')">Get In Touch</a>
+                    </div>
+                </div>
+                <div
+                    style="background-image: url('https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?auto=format&fit=crop&q=80&w=800'); background-size: cover; background-position: center; border-left: 0.5px solid var(--color-primary);">
+                    <div
+                        style="width: 100%; height: 100%; background: linear-gradient(to right, rgba(8,10,15,0.8), transparent);">
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- PAGE 3: PROJECTS / PORTFOLIO -->
+        <div id="projects-view" class="view-container" style="display: none;">
+            <section class="section-padding container">
+                <div class="flex-center" style="margin-top: 60px;">
+                    <span class="section-label bebas">ARCHIVE</span>
+                    <h2 class="italic" style="font-size: 64px;">The Portfolio</h2>
+                    <div class="filter-tabs social-icons"
+                        style="margin-top: 40px; border-top: 0.5px solid var(--color-border); padding-top: 20px;">
+                        <button class="nav-link active bebas"
+                            style="background:none; border:none; color:var(--color-primary);">ALL</button>
+                        <button class="nav-link bebas" style="background:none; border:none;">FILM</button>
+                        <button class="nav-link bebas" style="background:none; border:none;">SERIES</button>
+                        <button class="nav-link bebas" style="background:none; border:none;">DOCUMENTARY</button>
+                        <button class="nav-link bebas" style="background:none; border:none;">ADS</button>
+                    </div>
+                </div>
+                <div class="projects-grid">
+                    <!-- Repeat Project Cards or similar -->
+                    <div class="floating-card project-card reveal">
+                        <div class="project-bg"
+                            style="background-image: url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=800');">
+                        </div>
+                        <div class="project-overlay"></div>
+                        <div class="project-content">
+                            <span class="project-genre bebas">SCI-FI SERIES</span>
+                            <h3 class="project-title italic">Neural Drift</h3>
+                            <p class="project-meta mono">Apple TV+ · 2024</p>
+                        </div>
+                    </div>
+                    <div class="floating-card project-card reveal">
+                        <div class="project-bg"
+                            style="background-image: url('https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&q=80&w=800');">
+                        </div>
+                        <div class="project-overlay"></div>
+                        <div class="project-content">
+                            <span class="project-genre bebas">DRAMA</span>
+                            <h3 class="project-title italic">Ochre Skies</h3>
+                            <p class="project-meta mono">Searchlight · 2023</p>
+                        </div>
+                    </div>
+                    <div class="floating-card project-card reveal">
+                        <div class="project-bg"
+                            style="background-image: url('https://images.unsplash.com/photo-1485846234645-a62644f84728?auto=format&fit=crop&q=80&w=800');">
+                        </div>
+                        <div class="project-overlay"></div>
+                        <div class="project-content">
+                            <span class="project-genre bebas">DOCUMENTARY</span>
+                            <h3 class="project-title italic">The Frequency</h3>
+                            <p class="project-meta mono">HBO · 2023</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- UNIQUE SECTION 1: Wipe Reveal Animation -->
+            <section class="section-padding container reveal" style="margin-top: 60px;">
+                <span class="section-label bebas">SPOTLIGHT</span>
+                <div class="projects-unique-grid"
+                    style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 30px; align-items: center;">
+                    <div>
+                        <h2 class="cormorant italic" style="font-size: 56px; line-height: 1.1;">Anatomy of a Scene: The
+                            Climax</h2>
+                        <p class="mono" style="margin-top: 20px;">For the pivotal scene in 'Hollow Meridian', we
+                            stripped away the orchestral score entirely, replacing it with a singular, distorted
+                            synthesizer drone that pitched up slowly over four minutes, creating unbearable tension.</p>
+                    </div>
+                    <div class="wipe-reveal"
+                        style="height: 400px; background-image: url('https://images.unsplash.com/photo-1440404653325-ab127d49abc1?auto=format&fit=crop&q=80&w=800'); background-size: cover; background-position: center; border: 1px solid var(--color-primary);">
+                    </div>
+                </div>
+            </section>
+
+            <!-- UNIQUE SECTION 2: Sonic Architecture (Hover Accordion) -->
+            <section class="section-padding container reveal">
+                <span class="section-label bebas">METHODOLOGY</span>
+                <h2 class="cormorant italic" style="font-size: 56px; margin: 30px 0;">Sonic Architecture</h2>
+                <div class="accordion-container">
+                    <div class="accordion-card wipe-reveal"
+                        style="background-image: url('https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?auto=format&fit=crop&q=80&w=800');">
+                        <div class="accordion-title-vertical">01. AMBIENCE</div>
+                        <div class="accordion-content">
+                            <h3 class="cormorant">World Building</h3>
+                            <p class="mono" style="font-size: 12px; margin-top: 10px;">Establishing the psychological
+                                space of the narrative before dialect begins.</p>
+                        </div>
+                    </div>
+                    <div class="accordion-card wipe-reveal"
+                        style="transition-delay: 0.1s; background-image: url('https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&q=80&w=800');">
+                        <div class="accordion-title-vertical">02. TENSION</div>
+                        <div class="accordion-content">
+                            <h3 class="cormorant">The Build</h3>
+                            <p class="mono" style="font-size: 12px; margin-top: 10px;">Subtle rhythmic inductions that
+                                match the pacing of the edit.</p>
+                        </div>
+                    </div>
+                    <div class="accordion-card wipe-reveal"
+                        style="transition-delay: 0.2s; background-image: url('https://images.unsplash.com/photo-1478720568477-152d9b164e26?auto=format&fit=crop&q=80&w=800');">
+                        <div class="accordion-title-vertical">03. CATHARSIS</div>
+                        <div class="accordion-content">
+                            <h3 class="cormorant">The Release</h3>
+                            <p class="mono" style="font-size: 12px; margin-top: 10px;">The harmonic resolution that
+                                allows the audience to exhale.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- UNIQUE SECTION 3: Infinite Marquee -->
+            <section class="reveal" style="padding: 100px 0;">
+                <div class="marquee-wrapper">
+                    <div class="marquee-content">
+                        <span class="marquee-item">CANNES OFFICIAL SELECTION</span>
+                        <span class="marquee-item">SUNDANCE GRAND JURY</span>
+                        <span class="marquee-item">VENICE FILM FESTIVAL</span>
+                        <span class="marquee-item">BERLINALE</span>
+                        <!-- Repeat loop -->
+                        <span class="marquee-item">CANNES OFFICIAL SELECTION</span>
+                        <span class="marquee-item">SUNDANCE GRAND JURY</span>
+                        <span class="marquee-item">VENICE FILM FESTIVAL</span>
+                        <span class="marquee-item">BERLINALE</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- UNIQUE SECTION 4: Floating Parallax Data -->
+            <section class="section-padding container reveal" style="padding-top: 0;">
+                <div class="projects-unique-grid"
+                    style="display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;">
+                    <div class="float-container">
+                        <div class="float-item"
+                            style="width: 250px; height: 250px; border-radius: 50%; border: 1px solid var(--color-primary); display: flex; flex-direction: column; align-items: center; justify-content: center; top: 10%; left: 10%;">
+                            <span class="bebas" style="font-size: 40px; color: var(--color-primary);">12.5k +</span>
+                            <span class="mono" style="font-size: 10px; margin-top: 5px;">LICENSES CLEARED</span>
+                        </div>
+                        <div class="float-item"
+                            style="width: 180px; height: 180px; border-radius: 50%; border: 1px dashed var(--color-text-muted); display: flex; flex-direction: column; align-items: center; justify-content: center; bottom: 20%; right: 10%;">
+                            <span class="bebas" style="font-size: 30px; color: var(--color-text-primary);">400 +</span>
+                            <span class="mono" style="font-size: 10px; margin-top: 5px;">ARTISTS SIGNED</span>
+                        </div>
+                        <div class="float-item"
+                            style="width: 100px; height: 100px; border-radius: 50%; background: var(--color-primary-dim); top: 40%; right: 40%;">
+                        </div>
+                    </div>
+                    <div>
+                        <span class="section-label bebas">THE METRICS</span>
+                        <h2 class="cormorant italic" style="font-size: 56px; margin: 20px 0;">By The Numbers</h2>
+                        <p class="mono">We operate at a massive scale without losing our boutique sensibility. From
+                            independent artists to major labels, our clearance pipeline is robust and transparent.</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- PAGE 4: ABOUT FULL -->
+        <div id="about-view" class="view-container" style="display: none;">
+            <section class="section-padding container">
+                <div class="flex-center" style="margin-top: 60px;">
+                    <span class="section-label bebas">BIOGRAPHY</span>
+                    <h2 class="italic" style="font-size: 64px;">Our Story</h2>
+                </div>
+                <div class="about-split reveal" style="margin-top: 60px;">
+                    <div class="about-text">
+                        <p class="mono">Founded by Marcus Vane in 2012, SoundFrame Studio grew from a boutique licensing
+                            house into a full-scale cinematic partner. Our team consists of musicologists, rights
+                            experts, and creative directors dedicated to the art of synchronization.</p>
+                        <h3 class="cormorant italic" style="font-size: 32px; margin: 40px 0 20px;">The Philosophy</h3>
+                        <p class="mono"
+                            style="border-left: 2px solid var(--color-primary); padding-left: 20px; font-style: italic;">
+                            “Music isn't the background—it is the subconscious of the film. It tells the audience what
+                            the characters aren't saying.”</p>
+                    </div>
+                    <div class="about-image floating-card" style="height: 500px;"></div>
+                </div>
+            </section>
+
+            <!-- UNIQUE ABOUT 1: The Core Team (Staggered Scale) -->
+            <section class="section-padding container reveal"
+                style="background: var(--color-bg-surface); margin-top: 60px; padding: 100px 60px; border-top: 1px solid var(--color-border);">
+                <span class="section-label bebas" style="text-align: center;">THE EXPERTS</span>
+                <h2 class="cormorant italic" style="font-size: 56px; text-align: center; margin-bottom: 60px;">
+                    Architects of Sound</h2>
+                <div class="projects-unique-grid"
+                    style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px;">
+                    <div class="team-card floating-card" style="padding: 0; transition-delay: 0.1s;">
+                        <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&q=80&w=600"
+                            style="width: 100%; height: 350px; object-fit: cover; filter: grayscale(100%);">
+                        <div style="padding: 30px;">
+                            <h3 class="bebas" style="font-size: 24px; color: var(--color-primary);">ELENA ROSTOVA</h3>
+                            <p class="mono" style="font-size: 12px; margin-top: 5px;">HEAD OF LICENSING</p>
+                        </div>
+                    </div>
+                    <div class="team-card floating-card" style="padding: 0; transition-delay: 0.3s;">
+                        <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&q=80&w=600"
+                            style="width: 100%; height: 350px; object-fit: cover; filter: grayscale(100%);">
+                        <div style="padding: 30px;">
+                            <h3 class="bebas" style="font-size: 24px; color: var(--color-primary);">JAMES CORBIN</h3>
+                            <p class="mono" style="font-size: 12px; margin-top: 5px;">LEAD MUSICOLOGIST</p>
+                        </div>
+                    </div>
+                    <div class="team-card floating-card" style="padding: 0; transition-delay: 0.5s;">
+                        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=600"
+                            style="width: 100%; height: 350px; object-fit: cover; filter: grayscale(100%);">
+                        <div style="padding: 30px;">
+                            <h3 class="bebas" style="font-size: 24px; color: var(--color-primary);">SARAH VANE</h3>
+                            <p class="mono" style="font-size: 12px; margin-top: 5px;">A&R DIRECTOR</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- UNIQUE ABOUT 2: The Studio Timeline (Vertical Draw Animation) -->
+            <section class="section-padding container reveal">
+                <div class="projects-unique-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 80px;">
+                    <div>
+                        <span class="section-label bebas">EVOLUTION</span>
+                        <h2 class="cormorant italic" style="font-size: 56px; margin: 20px 0;">Our Trajectory</h2>
+                        <div class="timeline-container">
+                            <div class="timeline-line"></div>
+                            <div class="timeline-item">
+                                <h4 class="bebas" style="color: var(--color-primary); font-size: 24px;">2012 — INCEPTION
+                                </h4>
+                                <p class="mono" style="font-size: 14px; margin-top: 10px;">Founded as a two-person
+                                    clearance agency in a London basement.</p>
+                            </div>
+                            <div class="timeline-item" style="transition-delay: 0.4s;">
+                                <h4 class="bebas" style="color: var(--color-primary); font-size: 24px;">2018 — THE MAJOR
+                                    SHIFT</h4>
+                                <p class="mono" style="font-size: 14px; margin-top: 10px;">Secured our first global
+                                    streaming platform exclusivity deal.</p>
+                            </div>
+                            <div class="timeline-item" style="transition-delay: 0.8s;">
+                                <h4 class="bebas" style="color: var(--color-primary); font-size: 24px;">2024 — GLOBAL
+                                    REACH</h4>
+                                <p class="mono" style="font-size: 14px; margin-top: 10px;">Operating across LA, Paris,
+                                    and Tokyo with an archive of over 50,000 masters.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="position: relative; height: 100%; min-height: 500px;">
+                        <img src="https://images.unsplash.com/photo-1559424452-eeb3a13ffe2b?auto=format&fit=crop&q=80&w=800"
+                            style="width: 100%; height: 100%; object-fit: cover; filter: sepia(0.3) contrast(1.2);">
+                    </div>
+                </div>
+            </section>
+
+            <!-- UNIQUE ABOUT 3: The Lab Map (Pulse Animation) -->
+            <section class="reveal"
+                style="position: relative; height: 60vh; min-height: 500px; background-image: url('https://images.unsplash.com/photo-1518774164434-297ed9f5188f?auto=format&fit=crop&q=80&w=2000'); background-size: cover; background-position: center; border-top: 1px solid var(--color-border);">
+                <div
+                    style="position: absolute; top:0; left:0; width:100%; height:100%; background: linear-gradient(to right, rgba(8, 10, 15, 0.95) 0%, rgba(8, 10, 15, 0.7) 100%);">
+                </div>
+                <div class="container"
+                    style="position: relative; z-index: 2; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;">
+                    <span class="section-label bebas">INFRASTRUCTURE</span>
+                    <h2 class="cormorant italic" style="font-size: 56px; margin: 20px 0 60px;">Worldwide Audio Nodes
+                    </h2>
+                    <div style="position: relative; width: 100%; max-width: 800px; height: 300px;">
+                        <!-- Custom pseudo-map container -->
+                        <div
+                            style="position: absolute; top: 30%; left: 20%; display: flex; flex-direction: column; align-items: center;">
+                            <div class="pulse-dot"></div>
+                            <span class="mono" style="margin-top: 30px; font-size: 11px;">LOS ANGELES</span>
+                        </div>
+                        <div
+                            style="position: absolute; top: 20%; left: 50%; display: flex; flex-direction: column; align-items: center;">
+                            <div class="pulse-dot" style="animation-delay: 0.5s;"></div>
+                            <span class="mono" style="margin-top: 30px; font-size: 11px;">LONDON</span>
+                        </div>
+                        <div
+                            style="position: absolute; top: 40%; left: 80%; display: flex; flex-direction: column; align-items: center;">
+                            <div class="pulse-dot" style="animation-delay: 1s;"></div>
+                            <span class="mono" style="margin-top: 30px; font-size: 11px;">TOKYO</span>
+                        </div>
+                        <div
+                            style="position: absolute; top: 50%; left: 55%; display: flex; flex-direction: column; align-items: center;">
+                            <div class="pulse-dot" style="animation-delay: 1.5s;"></div>
+                            <span class="mono" style="margin-top: 30px; font-size: 11px;">PARIS</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- PAGE 5: CONTACT -->
+        <div id="contact-view" class="view-container" style="display: none;">
+            <section class="section-padding container reveal">
+                <div class="flex-center" style="margin-top: 60px;">
+                    <span class="section-label bebas">CONNECT</span>
+                    <h2 class="italic" style="font-size: clamp(32px, 8vw, 64px); line-height: 1.2;">Initiate Your
+                        Project</h2>
+                </div>
+
+                <div class="contact-layout">
+                    <div class="contact-info-cards">
+                        <div class="floating-card contact-info-card reveal">
+                            <i data-lucide="mail"></i>
+                            <div>
+                                <label>Email</label>
+                                <p class="mono">studio@soundframe.com</p>
+                            </div>
+                        </div>
+                        <div class="floating-card contact-info-card reveal">
+                            <i data-lucide="phone"></i>
+                            <div>
+                                <label>Phone</label>
+                                <p class="mono">+1 (310) 555-0192</p>
+                            </div>
+                        </div>
+                        <div class="floating-card contact-info-card reveal">
+                            <i data-lucide="map-pin"></i>
+                            <div>
+                                <label>Location</label>
+                                <p class="mono">8840 Wilshire Blvd, Beverly Hills</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <form class="floating-card contact-form reveal">
+                        <div class="form-group">
+                            <label>Name</label>
+                            <input type="text" placeholder="Your Name">
+                        </div>
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="email" placeholder="Email Address">
+                        </div>
+                        <div class="form-group full">
+                            <label>Project Type</label>
+                            <select>
+                                <option>Feature Film</option>
+                                <option>TV Series</option>
+                                <option>Documentary</option>
+                                <option>Advertising</option>
+                            </select>
+                        </div>
+                        <div class="form-group full">
+                            <label>Message</label>
+                            <textarea rows="5" placeholder="How can we help you score your project?"></textarea>
+                        </div>
+                        <div class="form-group full">
+                            <button type="submit" class="btn btn-primary">Send Message</button>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="map-container reveal">
+                    <iframe width="100%" height="100%" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"
+                        src="https://maps.google.com/maps?q=Beverly%20Hills%20Wilshire&t=&z=13&ie=UTF8&iwloc=&output=embed"></iframe>
+                </div>
+            </section>
+        </div>
+
+        <!-- PAGE 6: LOGIN -->
+        <div id="login-view" class="view-container" style="display: none;">
+            <div class="auth-nav"
+                style="position: absolute; top: 0; left: 0; width: 100%; padding: 40px; display: flex; justify-content: flex-end; align-items: center; z-index: 10;">
+                <div style="display: flex; gap: 15px;">
+                    <button class="icon-btn" onclick="toggleDarkMode()" title="Toggle Dark Mode">
+                        <i data-lucide="moon" class="theme-icon-el"></i>
+                    </button>
+                    <button class="icon-btn" onclick="toggleRTL()" title="Toggle RTL">
+                        <i data-lucide="languages"></i>
+                    </button>
+                </div>
+            </div>
+            <section class="section-padding container flex-center reveal"
+                style="min-height: 100vh; position: relative;">
+                <div class="floating-card"
+                    style="width: 100%; max-width: 450px; padding: 60px 40px; background: var(--color-bg-surface);">
+                    <div class="flex-center" style="margin-bottom: 40px;">
+                        <a href="#home" class="logo-box" onclick="showPage('home')"
+                            style="text-decoration: none; text-align: center; cursor: pointer; display: block;">
+                            <span class="logo-wordmark bebas"
+                                style="font-size: 24px; color: var(--color-text-primary);">SOUNDFRAME</span>
+                            <span class="logo-studio cormorant italic"
+                                style="font-size: 14px; color: var(--color-primary); display: block;">Studio</span>
+                        </a>
+                    </div>
+                    <span class="section-label bebas" style="text-align: center;">AUTHENTICATION</span>
+                    <h2 class="cormorant italic" style="font-size: 40px; text-align: center; margin-bottom: 40px;">
+                        Studio Access</h2>
+                    <form onsubmit="event.preventDefault();" style="display: flex; flex-direction: column; gap: 20px;">
+                        <div>
+                            <label class="mono" style="font-size: 11px; margin-bottom: 8px; display: block;">EMAIL
+                                ADDRESS</label>
+                            <input type="email" placeholder="client@studio.com"
+                                style="width: 100%; padding: 15px; background: var(--color-bg-void); border: 1px solid var(--color-border); color: var(--color-text-primary); font-family: 'DM Mono'; outline: none;">
+                        </div>
+                        <div>
+                            <label class="mono"
+                                style="font-size: 11px; margin-bottom: 8px; display: block;">PASSWORD</label>
+                            <input type="password" placeholder="••••••••"
+                                style="width: 100%; padding: 15px; background: var(--color-bg-void); border: 1px solid var(--color-border); color: var(--color-text-primary); font-family: 'DM Mono'; outline: none;">
+                        </div>
+                        <button class="btn btn-primary"
+                            style="width: 100%; margin-top: 10px; padding: 15px; font-size: 14px; cursor: pointer;">Sign
+                            In</button>
+                    </form>
+                    <p class="mono"
+                        style="margin-top: 30px; font-size: 12px; color: var(--color-text-faint); text-align: center;">
+                        Don't have an account? <a href="#signup" onclick="showPage('signup')"
+                            style="color: var(--color-primary); cursor: pointer;">Request Access</a>
+                    </p>
+                    <div class="social-icons" style="margin-top: 30px; justify-content: center;">
+                        <a href="#" class="social-link social-fb">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+                            </svg>
+                        </a>
+                        <a href="#" class="social-link social-ig">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                            </svg>
+                        </a>
+                        <a href="#" class="social-link social-tw">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path
+                                    d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z">
+                                </path>
+                            </svg>
+                        </a>
+                        <a href="#" class="social-link social-li">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path
+                                    d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z">
+                                </path>
+                                <rect x="2" y="9" width="4" height="12"></rect>
+                                <circle cx="4" cy="4" r="2"></circle>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- PAGE 7: SIGN UP -->
+        <div id="signup-view" class="view-container" style="display: none;">
+            <div class="auth-nav"
+                style="position: absolute; top: 0; left: 0; width: 100%; padding: 40px; display: flex; justify-content: flex-end; align-items: center; z-index: 10;">
+                <div style="display: flex; gap: 15px;">
+                    <button class="icon-btn" onclick="toggleDarkMode()" title="Toggle Dark Mode">
+                        <i data-lucide="moon" class="theme-icon-el"></i>
+                    </button>
+                    <button class="icon-btn" onclick="toggleRTL()" title="Toggle RTL">
+                        <i data-lucide="languages"></i>
+                    </button>
+                </div>
+            </div>
+            <section class="section-padding container flex-center reveal"
+                style="min-height: 100vh; position: relative;">
+                <div class="floating-card"
+                    style="width: 100%; max-width: 500px; padding: 60px 40px; background: var(--color-bg-surface);">
+                    <div class="flex-center" style="margin-bottom: 40px;">
+                        <a href="#home" class="logo-box" onclick="showPage('home')"
+                            style="text-decoration: none; text-align: center; cursor: pointer; display: block;">
+                            <span class="logo-wordmark bebas"
+                                style="font-size: 24px; color: var(--color-text-primary);">SOUNDFRAME</span>
+                            <span class="logo-studio cormorant italic"
+                                style="font-size: 14px; color: var(--color-primary); display: block;">Studio</span>
+                        </a>
+                    </div>
+                    <span class="section-label bebas" style="text-align: center;">REGISTRATION</span>
+                    <h2 class="cormorant italic" style="font-size: 40px; text-align: center; margin-bottom: 10px;">
+                        Request Access</h2>
+                    <p class="mono"
+                        style="margin-bottom: 40px; font-size: 12px; text-align: center; color: var(--color-text-muted);">
+                        Studio archives are restricted to verified production partners.</p>
+                    <form onsubmit="event.preventDefault();" style="display: flex; flex-direction: column; gap: 20px;">
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                            <div>
+                                <label class="mono" style="font-size: 11px; margin-bottom: 8px; display: block;">FIRST
+                                    NAME</label>
+                                <input type="text"
+                                    style="width: 100%; padding: 15px; background: var(--color-bg-void); border: 1px solid var(--color-border); color: var(--color-text-primary); font-family: 'DM Mono'; outline: none;">
+                            </div>
+                            <div>
+                                <label class="mono" style="font-size: 11px; margin-bottom: 8px; display: block;">LAST
+                                    NAME</label>
+                                <input type="text"
+                                    style="width: 100%; padding: 15px; background: var(--color-bg-void); border: 1px solid var(--color-border); color: var(--color-text-primary); font-family: 'DM Mono'; outline: none;">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="mono" style="font-size: 11px; margin-bottom: 8px; display: block;">PRODUCTION
+                                COMPANY</label>
+                            <input type="text" placeholder="e.g. A24, HBO"
+                                style="width: 100%; padding: 15px; background: var(--color-bg-void); border: 1px solid var(--color-border); color: var(--color-text-primary); font-family: 'DM Mono'; outline: none;">
+                        </div>
+                        <div>
+                            <label class="mono" style="font-size: 11px; margin-bottom: 8px; display: block;">WORK
+                                EMAIL</label>
+                            <input type="email" placeholder="name@company.com"
+                                style="width: 100%; padding: 15px; background: var(--color-bg-void); border: 1px solid var(--color-border); color: var(--color-text-primary); font-family: 'DM Mono'; outline: none;">
+                        </div>
+                        <button class="btn btn-primary"
+                            style="width: 100%; margin-top: 10px; padding: 15px; font-size: 14px; cursor: pointer;">Submit
+                            Request</button>
+                    </form>
+                    <p class="mono"
+                        style="margin-top: 30px; font-size: 12px; color: var(--color-text-faint); text-align: center;">
+                        Already verified? <a href="#login" onclick="showPage('login')"
+                            style="color: var(--color-primary); cursor: pointer;">Sign In</a>
+                    </p>
+                    <div class="social-icons" style="margin-top: 30px; justify-content: center;">
+                        <a href="#" class="social-link social-fb">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+                            </svg>
+                        </a>
+                        <a href="#" class="social-link social-ig">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                            </svg>
+                        </a>
+                        <a href="#" class="social-link social-tw">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path
+                                    d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z">
+                                </path>
+                            </svg>
+                        </a>
+                        <a href="#" class="social-link social-li">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path
+                                    d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z">
+                                </path>
+                                <rect x="2" y="9" width="4" height="12"></rect>
+                                <circle cx="4" cy="4" r="2"></circle>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <!-- PAGE 8: TOOLS OR TECHS -->
+        <div id="tools-view" class="view-container" style="display: none;">
+            <section class="section-padding container reveal" style="margin-top: 60px;">
+                <div class="flex-center">
+                    <span class="section-label bebas">INFRASTRUCTURE</span>
+                    <h2 class="italic" style="font-size: 64px; text-align: center;">Tools or Techs</h2>
+                </div>
+                <div class="projects-unique-grid"
+                    style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; margin-top: 60px;">
+                    <div class="floating-card flex-center reveal" style="padding: 60px 40px; text-align: center;">
+                        <i data-lucide="headphones"
+                            style="width: 48px; height: 48px; color: var(--color-primary); margin-bottom: 20px;"></i>
+                        <h3 class="bebas" style="font-size: 24px; margin-bottom: 10px;">Pro Tools Ultimate</h3>
+                        <p class="mono" style="font-size: 12px;">Industry standard audio post-production and mix
+                            workflows.</p>
+                    </div>
+                    <div class="floating-card flex-center reveal"
+                        style="padding: 60px 40px; text-align: center; transition-delay: 0.2s;">
+                        <i data-lucide="sliders"
+                            style="width: 48px; height: 48px; color: var(--color-primary); margin-bottom: 20px;"></i>
+                        <h3 class="bebas" style="font-size: 24px; margin-bottom: 10px;">Analog Consoles</h3>
+                        <p class="mono" style="font-size: 12px;">Vintage Neve and SSL desks for warmth, harmonic
+                            distortion, and depth.</p>
+                    </div>
+                    <div class="floating-card flex-center reveal"
+                        style="padding: 60px 40px; text-align: center; transition-delay: 0.4s;">
+                        <i data-lucide="monitor"
+                            style="width: 48px; height: 48px; color: var(--color-primary); margin-bottom: 20px;"></i>
+                        <h3 class="bebas" style="font-size: 24px; margin-bottom: 10px;">Synthesis Logic</h3>
+                        <p class="mono" style="font-size: 12px;">Custom modular synths for distinct, irreplicable scifi
+                            and thriller tones.</p>
+                    </div>
+                    <div class="floating-card flex-center reveal" style="padding: 60px 40px; text-align: center;">
+                        <i data-lucide="mic"
+                            style="width: 48px; height: 48px; color: var(--color-primary); margin-bottom: 20px;"></i>
+                        <h3 class="bebas" style="font-size: 24px; margin-bottom: 10px;">Foley Setup</h3>
+                        <p class="mono" style="font-size: 12px;">Bespoke acoustic captures tailored precisely to the
+                            on-screen action.</p>
+                    </div>
+                    <div class="floating-card flex-center reveal"
+                        style="padding: 60px 40px; text-align: center; transition-delay: 0.2s;">
+                        <i data-lucide="speaker"
+                            style="width: 48px; height: 48px; color: var(--color-primary); margin-bottom: 20px;"></i>
+                        <h3 class="bebas" style="font-size: 24px; margin-bottom: 10px;">Dolby Atmos</h3>
+                        <p class="mono" style="font-size: 12px;">Full spatial audio mixing capabilities for modern
+                            streaming and theatre setups.</p>
+                    </div>
+                    <div class="floating-card flex-center reveal"
+                        style="padding: 60px 40px; text-align: center; transition-delay: 0.4s;">
+                        <i data-lucide="database"
+                            style="width: 48px; height: 48px; color: var(--color-primary); margin-bottom: 20px;"></i>
+                        <h3 class="bebas" style="font-size: 24px; margin-bottom: 10px;">Global Archive</h3>
+                        <p class="mono" style="font-size: 12px;">Secure interconnected cloud vault holding over 50,000
+                            clearable masters.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- UNIQUE TOOLS 1: The Mixing Console (Image Reveal & Slide) -->
+            <section class="reveal container" style="margin-top: 100px; padding: 0;">
+                <div
+                    style="position: relative; width: 100%; height: 600px; overflow: hidden; border-radius: 8px; border: 1px solid var(--color-border);">
+                    <div class="hardware-bg"
+                        style="position: absolute; top: -5%; left: -5%; width: 110%; height: 110%; background-image: url('https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?auto=format&fit=crop&q=80&w=1600'); background-size: cover; background-position: center; filter: grayscale(80%) contrast(1.2);">
+                    </div>
+                    <div
+                        style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to right, rgba(8, 10, 15, 0.95) 0%, rgba(8, 10, 15, 0.2) 100%);">
+                    </div>
+
+                    <div class="synth-card" style="position: absolute; top: 20%; left: 80px; max-width: 400px;">
+                        <span class="section-label bebas">THE COMMAND CENTER</span>
+                        <h2 class="cormorant italic" style="font-size: 56px; margin: 15px 0 20px; line-height: 1;">SSL
+                            AWS
+                            948</h2>
+                        <p class="mono" style="color: var(--color-text-primary); font-size: 14px;">The heart of
+                            SoundFrame
+                            Studio. Our hybrid analog/digital console allows for the impeccable warmth of classic
+                            outboard
+                            summing combined with the speed of modern digital recall.</p>
+                        <div style="margin-top: 40px; display: flex; gap: 20px;">
+                            <div style="border-left: 2px solid var(--color-primary); padding-left: 15px;">
+                                <span class="bebas" style="font-size: 24px;">48</span><br>
+                                <span class="mono" style="font-size: 10px;">CHANNELS</span>
+                            </div>
+                            <div style="border-left: 2px solid var(--color-primary); padding-left: 15px;">
+                                <span class="bebas" style="font-size: 24px;">V-HD</span><br>
+                                <span class="mono" style="font-size: 10px;">PREAMPS</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- UNIQUE TOOLS 2: Synthesis Archive (Staggered Grid) -->
+            <section class="reveal container section-padding" style="margin-top: 40px;">
+                <div class="flex-center" style="margin-bottom: 60px;">
+                    <span class="section-label bebas">SYNTHESIS</span>
+                    <h2 class="italic" style="font-size: clamp(36px, 10vw, 56px); text-align: center;">Analog Generation
+                    </h2>
+                </div>
+                <div class="projects-unique-grid"
+                    style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px; perspective: 1000px;">
+                    <div class="synth-card floating-card" style="padding: 0; overflow: hidden;">
+                        <div style="height: 300px; overflow: hidden;">
+                            <img class="hardware-bg"
+                                src="https://images.unsplash.com/photo-1559424452-eeb3a13ffe2b?auto=format&fit=crop&q=80&w=800"
+                                style="width: 100%; height: 100%; object-fit: cover;">
+                        </div>
+                        <div
+                            style="padding: 40px; background: var(--color-bg-surface); border-top: 1px solid var(--color-border);">
+                            <h3 class="bebas" style="font-size: 32px; color: var(--color-primary);">Moog Sub 37</h3>
+                            <p class="mono" style="font-size: 14px; margin-top: 15px;">Utilized heavily in thriller
+                                scores
+                                for unyielding, thick sub-bass presence and aggressive growls.</p>
+                        </div>
+                    </div>
+                    <div class="synth-card floating-card" style="padding: 0; overflow: hidden; transition-delay: 0.2s;">
+                        <div style="height: 300px; overflow: hidden;">
+                            <img class="hardware-bg"
+                                src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&q=80&w=800"
+                                style="width: 100%; height: 100%; object-fit: cover;">
+                        </div>
+                        <div
+                            style="padding: 40px; background: var(--color-bg-surface); border-top: 1px solid var(--color-border);">
+                            <h3 class="bebas" style="font-size: 32px; color: var(--color-primary);">Prophet Rev2</h3>
+                            <p class="mono" style="font-size: 14px; margin-top: 15px;">The polyphonic engine behind our
+                                sprawling, emotional sci-fi pads and dynamic brass swells.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- PAGE 9: SERVICES -->
+        <div id="services-view" class="view-container" style="display: none;">
+
+            <!-- Services Hero -->
+            <section class="hero"
+                style="display: flex; background-image: url('https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?auto=format&fit=crop&q=80&w=1600');">
+                <div class="scanline"></div>
+                <div class="hero-overlay"></div>
+                <div class="container hero-content">
+                    <span class="hero-tagline bebas reveal active">STUDIO OFFERINGS · CRAFTING SOUND</span>
+                    <h1 class="cormorant italic reveal active">Elevating Narrative Through Audio</h1>
+                    <p class="mono reveal active">From original scoring to complex synchronization licensing. Our
+                        end-to-end services ensure your vision is realized.</p>
+                </div>
+                <div class="scroll-indicator">
+                    <div class="scroll-line"></div>
+                </div>
+            </section>
+
+            <section class="section-padding container reveal">
+                <div class="flex-center">
+                    <span class="section-label bebas">OFFERINGS</span>
+                    <h2 class="italic" style="font-size: 64px; text-align: center;">Studio Services</h2>
+                </div>
+                <div style="display: flex; flex-direction: column; gap: 40px; margin-top: 60px;">
+                    <div class="floating-card reveal offering-card">
+                        <span class="cormorant italic"
+                            style="font-size: 120px; color: var(--color-primary); line-height: 0.8;">01</span>
+                        <div>
+                            <h3 class="bebas"
+                                style="font-size: 32px; letter-spacing: 0.1em; color: var(--color-text-primary);">
+                                Original Scoring</h3>
+                            <p class="mono" style="margin-top: 15px;">Bespoke compositional work tailored precisely to
+                                the narrative DNA of your picture. We bridge orchestral grandeur with modern synthesis.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="floating-card reveal offering-card">
+                        <span class="cormorant italic"
+                            style="font-size: 120px; color: var(--color-primary); line-height: 0.8;">02</span>
+                        <div>
+                            <h3 class="bebas"
+                                style="font-size: 32px; letter-spacing: 0.1em; color: var(--color-text-primary);">Music
+                                Supervision</h3>
+                            <p class="mono" style="margin-top: 15px;">Curating pre-existing tracks that elevate a scene
+                                from functional to unforgettable. Extensive network across indie labels and major
+                                publishers.</p>
+                        </div>
+                    </div>
+                    <div class="floating-card reveal offering-card">
+                        <span class="cormorant italic"
+                            style="font-size: 120px; color: var(--color-primary); line-height: 0.8;">03</span>
+                        <div>
+                            <h3 class="bebas"
+                                style="font-size: 32px; letter-spacing: 0.1em; color: var(--color-text-primary);">Rights
+                                & Clearance</h3>
+                            <p class="mono" style="margin-top: 15px;">Navigating the complex legal landscape of
+                                synchronization licensing, ensuring your project remains legally airtight and entirely
+                                within budget.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section-padding container reveal"
+                style="border-top: 1px solid var(--color-border); margin-top: 60px;">
+                <div class="flex-center">
+                    <span class="section-label bebas">CLIENTS</span>
+                    <h2 class="cormorant italic" style="font-size: 40px; text-align: center;">Trusted Partners</h2>
+                </div>
+                <div class="projects-unique-grid"
+                    style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 40px; margin-top: 60px;">
+                    <div class="floating-card flex-center">
+                        <h3 class="bebas"
+                            style="font-size: 30px; letter-spacing: 0.2em; color: var(--color-text-primary);">A24</h3>
+                    </div>
+                    <div class="floating-card flex-center">
+                        <h3 class="bebas"
+                            style="font-size: 30px; letter-spacing: 0.2em; color: var(--color-text-primary);">HBO</h3>
+                    </div>
+                    <div class="floating-card flex-center">
+                        <h3 class="bebas"
+                            style="font-size: 30px; letter-spacing: 0.2em; color: var(--color-text-primary);">AMAZON
+                        </h3>
+                    </div>
+                    <div class="floating-card flex-center">
+                        <h3 class="bebas"
+                            style="font-size: 30px; letter-spacing: 0.2em; color: var(--color-text-primary);">NETFLIX
+                        </h3>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="logo-box" style="margin-bottom: 20px;">
+                        <span class="logo-wordmark bebas">SOUNDFRAME</span>
+                        <span class="logo-studio cormorant italic">Studio</span>
+                    </div>
+                    <p class="mono" style="font-size: 13px;">Every Scene Has a Frequency. <br>Professional Music
+                        Supervision for Film, TV, and Media.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links mono" style="font-size: 12px;">
+                        <li><a href="#home" onclick="showPage('home')">Home</a></li>
+                        <li><a href="#about" onclick="showPage('about')">About Us</a></li>
+                        <li><a href="#tools" onclick="showPage('tools')">Tools or Techs</a></li>
+                        <li><a href="#services" onclick="showPage('services')">Services</a></li>
+                        <li><a href="#projects" onclick="showPage('projects')">Portfolio</a></li>
+                        <li><a href="#premium" onclick="showPage('premium')">Premium</a></li>
+                        <li><a href="#contact" onclick="showPage('contact')">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Recent</h4>
+                    <ul class="footer-links mono" style="font-size: 12px;">
+                        <li>Beneath the Static (2024)</li>
+                        <li>Hollow Meridian (2023)</li>
+                        <li>The Frequency (2023)</li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Social</h4>
+                    <div class="social-icons">
+                        <a href="#" class="social-link social-fb">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+                            </svg>
+                        </a>
+                        <a href="#" class="social-link social-ig">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                            </svg>
+                        </a>
+                        <a href="#" class="social-link social-tw">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path
+                                    d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z">
+                                </path>
+                            </svg>
+                        </a>
+                        <a href="#" class="social-link social-li">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path
+                                    d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z">
+                                </path>
+                                <rect x="2" y="9" width="4" height="12"></rect>
+                                <circle cx="4" cy="4" r="2"></circle>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright mono">
+                © <span id="year"></span> SoundFrame Studio. All Rights Reserved. · Designed with Cinema in Mind.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Init Lucide Icons
+        lucide.createIcons();
+
+        // Dark Mode Toggle
+        function toggleDarkMode() {
+            document.documentElement.classList.toggle('light');
+            const icons = document.querySelectorAll('.theme-icon-el');
+            icons.forEach(icon => {
+                if (document.documentElement.classList.contains('light')) {
+                    icon.setAttribute('data-lucide', 'sun');
+                } else {
+                    icon.setAttribute('data-lucide', 'moon');
+                }
+            });
+            lucide.createIcons();
+        }
+
+        // RTL Toggle
+        function toggleRTL() {
+            const html = document.documentElement;
+            if (html.getAttribute('dir') === 'ltr') {
+                html.setAttribute('dir', 'rtl');
+                document.body.classList.add('rtl');
+            } else {
+                html.setAttribute('dir', 'ltr');
+                document.body.classList.remove('rtl');
+            }
+        }
+
+        // Sidebar Toggle
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('overlay');
+            sidebar.classList.toggle('active');
+            overlay.style.display = sidebar.classList.contains('active') ? 'block' : 'none';
+        }
+
+        // Page Switching Logic
+        function showPage(pageId) {
+            const views = ['home-view', 'premium-view', 'projects-view', 'about-view', 'contact-view', 'login-view', 'signup-view', 'tools-view', 'services-view'];
+            views.forEach(v => {
+                document.getElementById(v).style.display = 'none';
+            });
+
+            document.getElementById(pageId + '-view').style.display = 'block';
+
+            // Hide Header and Footer for login/signup
+            const header = document.querySelector('header');
+            const footer = document.querySelector('footer');
+            if (pageId === 'login' || pageId === 'signup') {
+                header.style.display = 'none';
+                footer.style.display = 'none';
+            } else {
+                header.style.display = 'block';
+                footer.style.display = 'block';
+            }
+
+            // Update Nav Links
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + pageId) {
+                    link.classList.add('active');
+                }
+            });
+
+            // Close sidebar if mobile
+            const sidebar = document.getElementById('sidebar');
+            if (sidebar.classList.contains('active')) toggleSidebar();
+
+            window.scrollTo(0, 0);
+
+            // Trigger animations on visible view
+            reveal();
+        }
+
+        // Intersection Observer for Reveal
+        function reveal() {
+            const reveals = document.querySelectorAll('.reveal');
+            reveals.forEach(el => {
+                const windowHeight = window.innerHeight;
+                const elementTop = el.getBoundingClientRect().top;
+                const elementVisible = 150;
+                if (elementTop < windowHeight - elementVisible) {
+                    el.classList.add('active');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', reveal);
+        window.addEventListener('load', () => {
+            const hash = window.location.hash.substring(1);
+            if (hash) {
+                showPage(hash);
+            } else {
+                showPage('home');
+            }
+            reveal();
+            document.getElementById('year').innerText = new Date().getFullYear();
+        });
+
+        // Parallax Effect on Hero
+        window.addEventListener('scroll', () => {
+            const hero = document.querySelector('.hero');
+            const scrolled = window.pageYOffset;
+            if (hero) {
+                hero.style.backgroundPositionY = (scrolled * 0.5) + 'px';
+            }
+        });
+
+    </script>
+</body>
+
+</html>

@@ -7,6 +7,7 @@
     <title>SoundFrame Studio | Music Supervision for Film & TV</title>
     <meta name="description"
         content="SoundFrame Studio: Production-grade music supervision for Directors, Producers, and Film Studios. Every scene has a frequency.">
+    <link rel="icon" type="image/png" href="assets/images/logo.png">
 
     <!-- Fonts -->
     <link
@@ -244,8 +245,25 @@
 
         .logo-box {
             display: flex;
-            flex-direction: column;
+            align-items: center;
+            gap: 12px;
             line-height: 1;
+        }
+
+        .brand-logo {
+            height: 48px;
+            width: auto;
+            object-fit: contain;
+            filter: brightness(1);
+        }
+
+        html.light .brand-logo {
+            filter: brightness(0.9);
+        }
+
+        .logo-text {
+            display: flex;
+            flex-direction: column;
         }
 
         .logo-wordmark {
@@ -354,6 +372,10 @@
             z-index: 1;
         }
 
+        html.light .hero-overlay {
+            background: linear-gradient(to bottom, rgba(249, 247, 243, 0.2) 0%, rgba(249, 247, 243, 0.6) 100%);
+        }
+
         .hero-content {
             position: relative;
             z-index: 2;
@@ -440,46 +462,12 @@
             transform: translateY(-2px);
         }
 
-        .scroll-indicator {
-            position: absolute;
-            bottom: 40px;
-            left: 50%;
-            transform: translateX(-50%);
+        .hero-btns {
             display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 10px;
-            z-index: 2;
+            justify-content: center;
+            gap: 20px;
         }
 
-        .scroll-line {
-            width: 1px;
-            height: 60px;
-            background: linear-gradient(to bottom, var(--color-primary), transparent);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .scroll-line::after {
-            content: "";
-            position: absolute;
-            top: -100%;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: #fff;
-            animation: scrollPulse 2s infinite ease-in-out;
-        }
-
-        @keyframes scrollPulse {
-            0% {
-                top: -100%;
-            }
-
-            100% {
-                top: 100%;
-            }
-        }
 
         /* --- SERVICES --- */
         .services-grid {
@@ -501,6 +489,21 @@
             color: var(--color-text-muted);
         }
 
+        .expertise-img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            margin-bottom: 25px;
+            border-radius: 2px;
+            border: 0.5px solid var(--color-border);
+            transition: var(--transition-main);
+        }
+
+        .service-card:hover .expertise-img {
+            border-color: var(--color-primary);
+            transform: scale(1.02);
+        }
+
         .service-card h3 {
             font-size: 28px;
             margin-bottom: 15px;
@@ -515,9 +518,25 @@
         .offering-card {
             display: grid;
             grid-template-columns: 1fr 2fr;
-            gap: 40px;
+            gap: 60px;
             align-items: center;
-            padding: 60px;
+            padding: 40px;
+        }
+
+        .offering-img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border: 1px solid var(--color-border);
+            filter: grayscale(80%);
+            transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .offering-card:hover .offering-img {
+            filter: grayscale(0%);
+            border-color: var(--color-primary);
+            transform: scale(1.05);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
         }
 
         /* --- ABOUT --- */
@@ -731,8 +750,8 @@
         }
 
         .client-avatar {
-            width: 50px;
-            height: 50px;
+            width: 60px;
+            height: 60px;
             border-radius: 50%;
             border: 1px solid var(--color-primary);
             display: flex;
@@ -740,6 +759,13 @@
             justify-content: center;
             font-family: 'Bebas Neue';
             color: var(--color-primary);
+            overflow: hidden;
+        }
+
+        .client-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
         .client-name {
@@ -774,54 +800,71 @@
             margin-bottom: 40px;
         }
 
-        /* --- CONTACT PAGE --- */
         .contact-layout {
             display: grid;
-            grid-template-columns: 1fr 1.5fr;
-            gap: 60px;
+            grid-template-columns: 1fr;
+            gap: 40px;
             margin-top: 60px;
+            align-items: start;
         }
 
         .contact-info-cards {
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: 25px;
         }
 
         .contact-info-card {
-            padding: 30px;
+            padding: 35px;
             display: flex;
             align-items: center;
             gap: 25px;
-            flex-direction: row;
-            text-align: left;
+            background: var(--color-bg-surface);
+            border: 1px solid var(--color-border);
+            border-radius: 4px;
+            transition: all 0.4s ease;
+        }
+
+        .contact-info-card:hover {
+            border-color: var(--color-primary);
+            transform: translateX(10px);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
         }
 
         .contact-info-card i {
             color: var(--color-primary);
+            width: 24px;
+            height: 24px;
+        }
+
+        .contact-info-card div {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
         }
 
         .contact-form {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            padding: 50px;
+            background: var(--color-bg-surface);
+            border: 1px solid var(--color-border);
+            border-radius: 4px;
         }
 
         .form-group {
             display: flex;
             flex-direction: column;
-            gap: 8px;
+            gap: 12px;
         }
 
-        .form-group.full {
-            grid-column: span 2;
-        }
-
-        label {
-            font-size: 10px;
+        .form-group label {
+            font-size: 11px;
             text-transform: uppercase;
             letter-spacing: 0.2em;
             color: var(--color-text-faint);
+            font-weight: 500;
         }
 
         input,
@@ -940,20 +983,54 @@
             text-align: right;
         }
 
-        body.rtl .nav-inner {
-            flex-direction: row-reverse;
+        body.rtl .btn-ghost {
+            margin-left: 0;
+            margin-right: 20px;
         }
 
-        body.rtl .nav-links {
-            flex-direction: row-reverse;
+        body.rtl .timeline-container {
+            padding-left: 0;
+            padding-right: 40px;
+            border-left: none;
+            border-right: 2px solid var(--color-primary);
         }
 
-        body.rtl .footer-grid {
-            direction: rtl;
+        body.rtl .timeline-line {
+            left: auto;
+            right: 0;
         }
 
-        body.rtl .about-split {
-            flex-direction: row-reverse;
+        body.rtl .timeline-item {
+            transform: translateX(30px);
+            text-align: right;
+        }
+
+        body.rtl .reveal.active .timeline-item {
+            transform: translateX(0);
+        }
+
+        body.rtl .timeline-item::before {
+            left: auto;
+            right: -45px;
+        }
+
+        body.rtl .sidebar {
+            left: auto;
+            right: -350px;
+            transition: right 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+            box-shadow: -20px 0 60px rgba(0, 0, 0, 0.5);
+        }
+
+        body.rtl .sidebar.active {
+            left: auto;
+            right: 0;
+        }
+
+        body.rtl .nav-inner,
+        body.rtl .nav-links,
+        body.rtl .nav-actions {
+            flex-direction: row;
+            /* Flex already reverses with direction:rtl */
         }
 
         /* Sidebar Overlay */
@@ -990,19 +1067,10 @@
 
         /* --- RESPONSIVE --- */
         @media (max-width: 1024px) {
-            .projects-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .about-split {
-                gap: 40px;
-            }
-        }
-
-        @media (max-width: 768px) {
 
             .nav-links,
-            .nav-actions .cta-btn-sm {
+            .nav-actions .cta-btn-sm,
+            .nav-actions .icon-btn:not(.hamburger) {
                 display: none;
             }
 
@@ -1014,8 +1082,29 @@
                 height: 70px;
             }
 
-            .services-grid {
+            .projects-grid {
                 grid-template-columns: repeat(2, 1fr);
+            }
+
+            .projects-grid .project-card:last-child:nth-child(odd) {
+                grid-column: 1 / span 2;
+                justify-self: center;
+                width: 100%;
+                max-width: 500px;
+            }
+
+            .about-split {
+                flex-direction: column;
+                gap: 40px;
+            }
+
+            .about-image {
+                width: 100% !important;
+                height: 450px !important;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
             }
 
             .offering-card {
@@ -1024,32 +1113,162 @@
                 padding: 40px 20px;
             }
 
-            /* STRICT 2x2 */
-            .projects-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
             .testimonial-grid {
                 grid-template-columns: 1fr;
-            }
-
-            .about-split {
-                flex-direction: column;
-            }
-
-            .about-image {
-                width: 100%;
-                height: 400px;
             }
 
             .footer-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
 
-            .contact-layout {
-                grid-template-columns: 1fr;
+            #contact-view .container {
+                padding-left: 20px !important;
+                padding-right: 20px !important;
             }
 
+            .contact-layout {
+                display: flex;
+                flex-direction: column;
+                gap: 40px;
+                width: 100% !important;
+                max-width: 100% !important;
+            }
+
+            .contact-info-cards {
+                width: 100% !important;
+                gap: 20px !important;
+            }
+
+            .contact-info-card {
+                padding: 25px !important;
+                flex-direction: column;
+                text-align: center;
+                gap: 15px !important;
+                width: 100% !important;
+                border-color: var(--color-border) !important;
+            }
+
+            .contact-info-card:hover {
+                transform: none;
+            }
+
+            .contact-info-card div {
+                align-items: center;
+                text-align: center;
+            }
+
+            .contact-info-card div p {
+                font-size: 12px !important;
+                word-break: break-all;
+                overflow-wrap: anywhere;
+            }
+
+            .social-icons {
+                justify-content: center !important;
+                width: 100% !important;
+                margin-top: 10px !important;
+                gap: 15px !important;
+            }
+
+            .contact-form {
+                padding: 30px !important;
+                width: 100% !important;
+                box-sizing: border-box;
+            }
+
+            .form-group label {
+                font-size: 10px !important;
+            }
+
+            @media (max-width: 768px) {
+                .contact-layout {
+                    grid-template-columns: 1fr !important;
+                }
+            }
+
+            .premium-about-grid {
+                grid-template-columns: 1fr !important;
+                gap: 40px !important;
+            }
+
+            .premium-services-grid {
+                grid-template-columns: 1fr !important;
+            }
+
+            .premium-cta {
+                grid-template-columns: 1fr !important;
+            }
+
+            .premium-cta>div {
+                padding: 60px 40px !important;
+                min-height: 400px;
+            }
+
+            .projects-unique-grid {
+                grid-template-columns: 1fr !important;
+            }
+
+            .accordion-container {
+                display: flex;
+                flex-wrap: wrap;
+                flex-direction: row !important;
+                height: auto !important;
+                gap: 20px;
+            }
+
+            .accordion-card {
+                flex: none !important;
+                width: calc(50% - 10px) !important;
+                height: 350px !important;
+            }
+
+            .accordion-card:last-child {
+                width: 100% !important;
+            }
+
+            .accordion-title-vertical {
+                writing-mode: horizontal-tb;
+                transform: none;
+                top: auto;
+                bottom: 20px;
+                right: 20px;
+            }
+
+            .hero-btns {
+                flex-direction: column;
+                align-items: center;
+                gap: 15px;
+            }
+
+            .hero-btns .btn {
+                width: 100%;
+                max-width: 300px;
+                margin-left: 0 !important;
+            }
+
+            .command-center-wrapper {
+                height: 550px !important;
+            }
+
+            .command-center-card {
+                left: 20px !important;
+                right: 20px !important;
+                top: 50% !important;
+                transform: translateY(-50%);
+                max-width: calc(100% - 40px) !important;
+                padding: 0 !important;
+            }
+
+            .command-center-card h2 {
+                font-size: 36px !important;
+            }
+
+            .command-center-card p {
+                font-size: 13px !important;
+            }
+        }
+
+        @media (max-width: 768px) {
             .hero h1 {
                 font-size: 48px;
             }
@@ -1058,20 +1277,20 @@
                 font-size: 40px !important;
             }
 
-            .contact-info-cards {
-                gap: 40px !important;
-            }
-
             .contact-info-card {
-                padding: 30px 20px;
+                padding: 30px 15px;
                 gap: 15px;
                 flex-direction: column;
                 text-align: center;
                 margin-bottom: 20px;
+                width: 100% !important;
+                box-sizing: border-box;
             }
 
             .contact-info-card div p {
                 font-size: 11px;
+                word-break: break-word;
+                overflow-wrap: anywhere;
             }
 
             .contact-form {
@@ -1102,12 +1321,21 @@
             }
 
             .accordion-container {
-                flex-direction: column;
-                height: 800px;
+                display: flex;
+                flex-wrap: wrap;
+                flex-direction: row !important;
+                height: auto !important;
+                gap: 20px;
             }
 
             .accordion-card {
-                min-height: 200px;
+                flex: none !important;
+                width: calc(50% - 10px) !important;
+                height: 350px !important;
+            }
+
+            .accordion-card:last-child {
+                width: 100% !important;
             }
 
             .accordion-title-vertical {
@@ -1116,6 +1344,39 @@
                 top: auto;
                 bottom: 20px;
                 right: 20px;
+            }
+
+            .hero-btns {
+                flex-direction: column;
+                align-items: center;
+                gap: 15px;
+            }
+
+            .hero-btns .btn {
+                width: 100%;
+                max-width: 300px;
+                margin-left: 0 !important;
+            }
+
+            .command-center-wrapper {
+                height: 550px !important;
+            }
+
+            .command-center-card {
+                left: 20px !important;
+                right: 20px !important;
+                top: 50% !important;
+                transform: translateY(-50%);
+                max-width: calc(100% - 40px) !important;
+                padding: 0 !important;
+            }
+
+            .command-center-card h2 {
+                font-size: 36px !important;
+            }
+
+            .command-center-card p {
+                font-size: 13px !important;
             }
         }
 
@@ -1142,6 +1403,40 @@
 
             .cta-banner h2 {
                 font-size: 40px;
+            }
+
+            .float-container {
+                height: 400px !important;
+            }
+
+            /* Portfolios Metrics specific floats */
+            .float-item:nth-child(1) {
+                width: 180px !important;
+                height: 180px !important;
+                top: 5% !important;
+                left: 5% !important;
+            }
+
+            .float-item:nth-child(1) span.bebas {
+                font-size: 30px !important;
+            }
+
+            .float-item:nth-child(2) {
+                width: 150px !important;
+                height: 150px !important;
+                bottom: 15% !important;
+                right: 5% !important;
+            }
+
+            .float-item:nth-child(2) span.bebas {
+                font-size: 24px !important;
+            }
+
+            .float-item:nth-child(3) {
+                width: 80px !important;
+                height: 80px !important;
+                top: 30% !important;
+                right: 30% !important;
             }
         }
 
@@ -1409,6 +1704,90 @@
             transform: translateY(0) rotateX(0deg);
             opacity: 1;
         }
+
+        /* --- BACK TO TOP --- */
+        .back-to-top {
+            position: fixed;
+            bottom: 40px;
+            right: 40px;
+            width: 50px;
+            height: 50px;
+            background: var(--color-primary);
+            color: #080a0f;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1100;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+            box-shadow: 0 10px 30px rgba(201, 168, 76, 0.3);
+        }
+
+        .back-to-top.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .back-to-top:hover {
+            background: #e0be6a;
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(201, 168, 76, 0.4);
+        }
+
+        body.rtl .back-to-top {
+            right: auto;
+            left: 40px;
+        }
+
+        .infrastructure-section,
+        .command-center-card,
+        .command-center-card *,
+        .project-content h3,
+        .project-content p,
+        .project-title,
+        .project-meta,
+        .accordion-content h3,
+        .accordion-content p {
+            color: #ffffff !important;
+        }
+
+        html.light .hero-overlay {
+            background: linear-gradient(to bottom, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.9) 100%);
+        }
+
+        .premium-hero-overlay {
+            background: linear-gradient(to right, rgba(8, 10, 15, 0.9) 30%, transparent 100%) !important;
+        }
+
+        html.light .premium-hero-overlay {
+            background: linear-gradient(to right, rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0.95) 100%) !important;
+        }
+
+        .infrastructure-section .section-label {
+            color: var(--color-primary);
+        }
+
+        html.light .infrastructure-section span.mono {
+            color: #ffffff !important;
+        }
+
+        @media (max-width: 768px) {
+            .back-to-top {
+                bottom: 20px;
+                right: 20px;
+                width: 40px;
+                height: 40px;
+            }
+
+            body.rtl .back-to-top {
+                right: auto;
+                left: 20px;
+            }
+        }
     </style>
 </head>
 
@@ -1418,8 +1797,11 @@
     <header>
         <div class="container nav-inner">
             <a href="#" class="logo-box" onclick="showPage('home')">
-                <span class="logo-wordmark bebas">SOUNDFRAME</span>
-                <span class="logo-studio cormorant italic">Studio</span>
+                <img src="assets/images/logo.png" alt="SoundFrame Logo" class="brand-logo">
+                <div class="logo-text">
+                    <span class="logo-wordmark bebas">SOUNDFRAME</span>
+                    <span class="logo-studio cormorant italic">Studio</span>
+                </div>
             </a>
 
             <nav class="nav-links">
@@ -1451,8 +1833,11 @@
     <!-- Sidebar (Mobile) -->
     <div class="sidebar" id="sidebar">
         <div class="logo-box">
-            <span class="logo-wordmark bebas">SOUNDFRAME</span>
-            <span class="logo-studio cormorant italic">Studio</span>
+            <img src="assets/images/logo.png" alt="SoundFrame Logo" class="brand-logo">
+            <div class="logo-text">
+                <span class="logo-wordmark bebas">SOUNDFRAME</span>
+                <span class="logo-studio cormorant italic">Studio</span>
+            </div>
         </div>
         <nav style="display: flex; flex-direction: column; gap: 20px;">
             <a href="#home" class="nav-link" onclick="showPage('home')">Home</a>
@@ -1464,11 +1849,15 @@
             <a href="#contact" class="nav-link" onclick="showPage('contact')">Contact</a>
             <a href="#login" class="cta-btn-sm" onclick="showPage('login')"
                 style="text-align: center; margin-top: 10px; background: transparent; border: 1px solid var(--color-primary); color: var(--color-primary);">Login</a>
+            <div style="display: flex; gap: 15px; justify-content: center; margin-top: 5px;">
+                <button class="icon-btn" onclick="toggleDarkMode()" title="Toggle Dark Mode">
+                    <i data-lucide="moon" class="theme-icon-el"></i>
+                </button>
+                <button class="icon-btn" onclick="toggleRTL()" title="Toggle RTL">
+                    <i data-lucide="languages"></i>
+                </button>
+            </div>
         </nav>
-        <div style="margin-top: auto; display: flex; gap: 20px;">
-            <button class="icon-btn" onclick="toggleDarkMode()"><i data-lucide="moon"></i></button>
-            <button class="icon-btn" onclick="toggleRTL()"><i data-lucide="languages"></i></button>
-        </div>
     </div>
     <div class="overlay-bg" id="overlay" onclick="toggleSidebar()"></div>
 
@@ -1492,9 +1881,6 @@
                         <a href="#contact" class="btn btn-ghost" onclick="showPage('contact')">Start A Project</a>
                     </div>
                 </div>
-                <div class="scroll-indicator">
-                    <div class="scroll-line"></div>
-                </div>
             </section>
 
             <!-- Services -->
@@ -1505,25 +1891,26 @@
                 </div>
                 <div class="services-grid">
                     <div class="floating-card service-card">
-                        <i data-lucide="music-4" size="48"></i>
+                        <img src="assets/images/expertise-curation.png" alt="Soundtrack Curation" class="expertise-img">
                         <h3 class="cormorant">Soundtrack Curation</h3>
                         <p class="mono">Hand-picked sonic textures that breathe life into every frame, ensuring
                             emotional resonance.</p>
                     </div>
                     <div class="floating-card service-card">
-                        <i data-lucide="file-check" size="48"></i>
+                        <img src="assets/images/expertise-licensing.png" alt="Licensing & Clearance"
+                            class="expertise-img">
                         <h3 class="cormorant">Licensing & Clearance</h3>
                         <p class="mono">Navigating the complex world of music rights with precision and global industry
                             expertise.</p>
                     </div>
                     <div class="floating-card service-card">
-                        <i data-lucide="mic-2" size="48"></i>
+                        <img src="assets/images/expertise-score.png" alt="Original Score" class="expertise-img">
                         <h3 class="cormorant">Original Score</h3>
                         <p class="mono">Coordinating with world-class composers to develop bespoke orchestral and
                             electronic scores.</p>
                     </div>
                     <div class="floating-card service-card">
-                        <i data-lucide="target" size="48"></i>
+                        <img src="assets/images/expertise-sync.png" alt="Sync Strategy" class="expertise-img">
                         <h3 class="cormorant">Sync Strategy</h3>
                         <p class="mono">Building strategic partnerships between artists and platforms for maximum
                             cultural impact.</p>
@@ -1662,7 +2049,9 @@
                         <p class="quote-text mono">“SoundFrame doesn't just find songs; they find the soul of the
                             project. Working with them transformed our series.”</p>
                         <div class="client-info">
-                            <div class="client-avatar">EM</div>
+                            <div class="client-avatar">
+                                <img src="assets/images/profile-elena.png" alt="Elena Moretti">
+                            </div>
                             <div>
                                 <h4 class="client-name cormorant">Elena Moretti</h4>
                                 <p class="client-role mono">Showrunner, Netflix</p>
@@ -1674,7 +2063,9 @@
                         <p class="quote-text mono">“The licensing process was seamless. They saved us months of
                             negotiation while hitting every creative cue.”</p>
                         <div class="client-info">
-                            <div class="client-avatar">JD</div>
+                            <div class="client-avatar">
+                                <img src="assets/images/profile-julian.png" alt="Julian De Vos">
+                            </div>
                             <div>
                                 <h4 class="client-name cormorant">Julian De Vos</h4>
                                 <p class="client-role mono">Producer, A24</p>
@@ -1686,7 +2077,9 @@
                         <p class="quote-text mono">“In twenty years of directing, I’ve never seen a team with such an
                             intuitive grasp of narrative rhythm.”</p>
                         <div class="client-info">
-                            <div class="client-avatar">SK</div>
+                            <div class="client-avatar">
+                                <img src="assets/images/profile-sarah.png" alt="Sarah Kincaid">
+                            </div>
                             <div>
                                 <h4 class="client-name cormorant">Sarah Kincaid</h4>
                                 <p class="client-role mono">Director, HBO</p>
@@ -1712,8 +2105,7 @@
             <!-- Premium Hero -->
             <section class="hero" style="display: flex;">
                 <div class="scanline"></div>
-                <div class="hero-overlay"
-                    style="background: linear-gradient(to right, rgba(8,10,15,0.9) 30%, transparent 100%);"></div>
+                <div class="hero-overlay premium-hero-overlay"></div>
                 <div class="container hero-content" style="text-align: left; margin-left: 0;">
                     <span class="hero-tagline bebas reveal" style="text-align: left;">PREMIUM PRODUCTION</span>
                     <h1 class="cormorant italic reveal" style="text-align: left; font-size: clamp(60px, 10vw, 100px);">
@@ -1973,9 +2365,10 @@
             <section class="section-padding container reveal" style="margin-top: 60px;">
                 <span class="section-label bebas">SPOTLIGHT</span>
                 <div class="projects-unique-grid"
-                    style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 30px; align-items: center;">
+                    style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 15px; align-items: center;">
                     <div>
-                        <h2 class="cormorant italic" style="font-size: 56px; line-height: 1.1;">Anatomy of a Scene: The
+                        <h2 class="cormorant italic" style="font-size: 56px; line-height: 1.1; margin-top: 0;">Anatomy
+                            of a Scene: The
                             Climax</h2>
                         <p class="mono" style="margin-top: 20px;">For the pivotal scene in 'Hollow Meridian', we
                             stripped away the orchestral score entirely, replacing it with a singular, distorted
@@ -2086,7 +2479,9 @@
                             “Music isn't the background—it is the subconscious of the film. It tells the audience what
                             the characters aren't saying.”</p>
                     </div>
-                    <div class="about-image floating-card" style="height: 500px;"></div>
+                    <div class="about-image floating-card"
+                        style="height: 500px; background-image: url('https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?auto=format&fit=crop&q=80&w=800');">
+                    </div>
                 </div>
             </section>
 
@@ -2101,7 +2496,7 @@
                     <div class="team-card floating-card" style="padding: 0; transition-delay: 0.1s;">
                         <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&q=80&w=600"
                             style="width: 100%; height: 350px; object-fit: cover; filter: grayscale(100%);">
-                        <div style="padding: 30px;">
+                        <div style="padding: 30px; text-align: center;">
                             <h3 class="bebas" style="font-size: 24px; color: var(--color-primary);">ELENA ROSTOVA</h3>
                             <p class="mono" style="font-size: 12px; margin-top: 5px;">HEAD OF LICENSING</p>
                         </div>
@@ -2109,7 +2504,7 @@
                     <div class="team-card floating-card" style="padding: 0; transition-delay: 0.3s;">
                         <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&q=80&w=600"
                             style="width: 100%; height: 350px; object-fit: cover; filter: grayscale(100%);">
-                        <div style="padding: 30px;">
+                        <div style="padding: 30px; text-align: center;">
                             <h3 class="bebas" style="font-size: 24px; color: var(--color-primary);">JAMES CORBIN</h3>
                             <p class="mono" style="font-size: 12px; margin-top: 5px;">LEAD MUSICOLOGIST</p>
                         </div>
@@ -2117,7 +2512,7 @@
                     <div class="team-card floating-card" style="padding: 0; transition-delay: 0.5s;">
                         <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=600"
                             style="width: 100%; height: 350px; object-fit: cover; filter: grayscale(100%);">
-                        <div style="padding: 30px;">
+                        <div style="padding: 30px; text-align: center;">
                             <h3 class="bebas" style="font-size: 24px; color: var(--color-primary);">SARAH VANE</h3>
                             <p class="mono" style="font-size: 12px; margin-top: 5px;">A&R DIRECTOR</p>
                         </div>
@@ -2161,7 +2556,7 @@
             </section>
 
             <!-- UNIQUE ABOUT 3: The Lab Map (Pulse Animation) -->
-            <section class="reveal"
+            <section class="reveal infrastructure-section"
                 style="position: relative; height: 60vh; min-height: 500px; background-image: url('https://images.unsplash.com/photo-1518774164434-297ed9f5188f?auto=format&fit=crop&q=80&w=2000'); background-size: cover; background-position: center; border-top: 1px solid var(--color-border);">
                 <div
                     style="position: absolute; top:0; left:0; width:100%; height:100%; background: linear-gradient(to right, rgba(8, 10, 15, 0.95) 0%, rgba(8, 10, 15, 0.7) 100%);">
@@ -2230,6 +2625,46 @@
                                 <p class="mono">8840 Wilshire Blvd, Beverly Hills</p>
                             </div>
                         </div>
+
+                        <!-- Social Icons Under Details -->
+                        <div class="social-icons" style="justify-content: center; margin-top: 20px;">
+                            <a href="#" class="social-link social-fb">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+                                </svg>
+                            </a>
+                            <a href="#" class="social-link social-ig">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                                    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                                    <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                                </svg>
+                            </a>
+                            <a href="#" class="social-link social-tw">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <path
+                                        d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z">
+                                    </path>
+                                </svg>
+                            </a>
+                            <a href="#" class="social-link social-li">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <path
+                                        d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z">
+                                    </path>
+                                    <rect x="2" y="9" width="4" height="12"></rect>
+                                    <circle cx="4" cy="4" r="2"></circle>
+                                </svg>
+                            </a>
+                        </div>
                     </div>
 
                     <form class="floating-card contact-form reveal">
@@ -2286,11 +2721,15 @@
                     style="width: 100%; max-width: 450px; padding: 60px 40px; background: var(--color-bg-surface);">
                     <div class="flex-center" style="margin-bottom: 40px;">
                         <a href="#home" class="logo-box" onclick="showPage('home')"
-                            style="text-decoration: none; text-align: center; cursor: pointer; display: block;">
-                            <span class="logo-wordmark bebas"
-                                style="font-size: 24px; color: var(--color-text-primary);">SOUNDFRAME</span>
-                            <span class="logo-studio cormorant italic"
-                                style="font-size: 14px; color: var(--color-primary); display: block;">Studio</span>
+                            style="text-decoration: none; text-align: center; cursor: pointer; display: flex; justify-content: center;">
+                            <img src="assets/images/logo.png" alt="SoundFrame Logo" class="brand-logo"
+                                style="height: 60px;">
+                            <div class="logo-text">
+                                <span class="logo-wordmark bebas"
+                                    style="font-size: 24px; color: var(--color-text-primary);">SOUNDFRAME</span>
+                                <span class="logo-studio cormorant italic"
+                                    style="font-size: 14px; color: var(--color-primary); display: block;">Studio</span>
+                            </div>
                         </a>
                     </div>
                     <span class="section-label bebas" style="text-align: center;">AUTHENTICATION</span>
@@ -2303,11 +2742,27 @@
                             <input type="email" placeholder="client@studio.com"
                                 style="width: 100%; padding: 15px; background: var(--color-bg-void); border: 1px solid var(--color-border); color: var(--color-text-primary); font-family: 'DM Mono'; outline: none;">
                         </div>
-                        <div>
+                        <div style="position: relative;">
                             <label class="mono"
                                 style="font-size: 11px; margin-bottom: 8px; display: block;">PASSWORD</label>
-                            <input type="password" placeholder="••••••••"
-                                style="width: 100%; padding: 15px; background: var(--color-bg-void); border: 1px solid var(--color-border); color: var(--color-text-primary); font-family: 'DM Mono'; outline: none;">
+                            <input type="password" id="login-pass" placeholder="••••••••"
+                                style="width: 100%; padding: 15px; padding-right: 45px; background: var(--color-bg-void); border: 1px solid var(--color-border); color: var(--color-text-primary); font-family: 'DM Mono'; outline: none;">
+                            <button type="button" onclick="togglePass('login-pass', this)"
+                                style="position: absolute; right: 15px; top: 38px; background: none; border: none; color: var(--color-text-faint); cursor: pointer; display: flex; align-items: center; justify-content: center;">
+                                <i data-lucide="eye" style="width: 18px; height: 18px;"></i>
+                            </button>
+                        </div>
+                        <div
+                            style="display: flex; justify-content: space-between; align-items: center; margin-top: -5px;">
+                            <label
+                                style="display: flex; align-items: center; gap: 8px; cursor: pointer; color: var(--color-text-faint); font-family: 'DM Mono'; font-size: 11px;">
+                                <input type="checkbox"
+                                    style="width: 14px; height: 14px; accent-color: var(--color-primary); cursor: pointer;">
+                                Remember me
+                            </label>
+                            <a href="#"
+                                style="color: var(--color-text-faint); font-family: 'DM Mono'; font-size: 11px; text-decoration: none;">Forgot
+                                password?</a>
                         </div>
                         <button class="btn btn-primary"
                             style="width: 100%; margin-top: 10px; padding: 15px; font-size: 14px; cursor: pointer;">Sign
@@ -2393,24 +2848,22 @@
                         style="margin-bottom: 40px; font-size: 12px; text-align: center; color: var(--color-text-muted);">
                         Studio archives are restricted to verified production partners.</p>
                     <form onsubmit="event.preventDefault();" style="display: flex; flex-direction: column; gap: 20px;">
-                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
-                            <div>
-                                <label class="mono" style="font-size: 11px; margin-bottom: 8px; display: block;">FIRST
-                                    NAME</label>
-                                <input type="text"
-                                    style="width: 100%; padding: 15px; background: var(--color-bg-void); border: 1px solid var(--color-border); color: var(--color-text-primary); font-family: 'DM Mono'; outline: none;">
-                            </div>
-                            <div>
-                                <label class="mono" style="font-size: 11px; margin-bottom: 8px; display: block;">LAST
-                                    NAME</label>
-                                <input type="text"
-                                    style="width: 100%; padding: 15px; background: var(--color-bg-void); border: 1px solid var(--color-border); color: var(--color-text-primary); font-family: 'DM Mono'; outline: none;">
-                            </div>
+                        <div>
+                            <label class="mono" style="font-size: 11px; margin-bottom: 8px; display: block;">FIRST
+                                NAME</label>
+                            <input type="text" placeholder="First Name"
+                                style="width: 100%; padding: 15px; background: var(--color-bg-void); border: 1px solid var(--color-border); color: var(--color-text-primary); font-family: 'DM Mono'; outline: none;">
+                        </div>
+                        <div>
+                            <label class="mono" style="font-size: 11px; margin-bottom: 8px; display: block;">LAST
+                                NAME</label>
+                            <input type="text" placeholder="Last Name"
+                                style="width: 100%; padding: 15px; background: var(--color-bg-void); border: 1px solid var(--color-border); color: var(--color-text-primary); font-family: 'DM Mono'; outline: none;">
                         </div>
                         <div>
                             <label class="mono" style="font-size: 11px; margin-bottom: 8px; display: block;">PRODUCTION
                                 COMPANY</label>
-                            <input type="text" placeholder="e.g. A24, HBO"
+                            <input type="text" placeholder="Production Company Name"
                                 style="width: 100%; padding: 15px; background: var(--color-bg-void); border: 1px solid var(--color-border); color: var(--color-text-primary); font-family: 'DM Mono'; outline: none;">
                         </div>
                         <div>
@@ -2418,6 +2871,26 @@
                                 EMAIL</label>
                             <input type="email" placeholder="name@company.com"
                                 style="width: 100%; padding: 15px; background: var(--color-bg-void); border: 1px solid var(--color-border); color: var(--color-text-primary); font-family: 'DM Mono'; outline: none;">
+                        </div>
+                        <div style="position: relative;">
+                            <label class="mono"
+                                style="font-size: 11px; margin-bottom: 8px; display: block;">PASSWORD</label>
+                            <input type="password" id="signup-pass" placeholder="••••••••"
+                                style="width: 100%; padding: 15px; padding-right: 45px; background: var(--color-bg-void); border: 1px solid var(--color-border); color: var(--color-text-primary); font-family: 'DM Mono'; outline: none;">
+                            <button type="button" onclick="togglePass('signup-pass', this)"
+                                style="position: absolute; right: 15px; top: 38px; background: none; border: none; color: var(--color-text-faint); cursor: pointer; display: flex; align-items: center; justify-content: center;">
+                                <i data-lucide="eye" style="width: 18px; height: 18px;"></i>
+                            </button>
+                        </div>
+                        <div style="position: relative;">
+                            <label class="mono" style="font-size: 11px; margin-bottom: 8px; display: block;">CONFIRM
+                                PASSWORD</label>
+                            <input type="password" id="signup-confirm" placeholder="••••••••"
+                                style="width: 100%; padding: 15px; padding-right: 45px; background: var(--color-bg-void); border: 1px solid var(--color-border); color: var(--color-text-primary); font-family: 'DM Mono'; outline: none;">
+                            <button type="button" onclick="togglePass('signup-confirm', this)"
+                                style="position: absolute; right: 15px; top: 38px; background: none; border: none; color: var(--color-text-faint); cursor: pointer; display: flex; align-items: center; justify-content: center;">
+                                <i data-lucide="eye" style="width: 18px; height: 18px;"></i>
+                            </button>
                         </div>
                         <button class="btn btn-primary"
                             style="width: 100%; margin-top: 10px; padding: 15px; font-size: 14px; cursor: pointer;">Submit
@@ -2529,7 +3002,7 @@
 
             <!-- UNIQUE TOOLS 1: The Mixing Console (Image Reveal & Slide) -->
             <section class="reveal container" style="margin-top: 100px; padding: 0;">
-                <div
+                <div class="command-center-wrapper"
                     style="position: relative; width: 100%; height: 600px; overflow: hidden; border-radius: 8px; border: 1px solid var(--color-border);">
                     <div class="hardware-bg"
                         style="position: absolute; top: -5%; left: -5%; width: 110%; height: 110%; background-image: url('https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?auto=format&fit=crop&q=80&w=1600'); background-size: cover; background-position: center; filter: grayscale(80%) contrast(1.2);">
@@ -2538,7 +3011,8 @@
                         style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to right, rgba(8, 10, 15, 0.95) 0%, rgba(8, 10, 15, 0.2) 100%);">
                     </div>
 
-                    <div class="synth-card" style="position: absolute; top: 20%; left: 80px; max-width: 400px;">
+                    <div class="synth-card command-center-card"
+                        style="position: absolute; top: 20%; left: 80px; max-width: 400px;">
                         <span class="section-label bebas">THE COMMAND CENTER</span>
                         <h2 class="cormorant italic" style="font-size: 56px; margin: 15px 0 20px; line-height: 1;">SSL
                             AWS
@@ -2628,8 +3102,7 @@
                 </div>
                 <div style="display: flex; flex-direction: column; gap: 40px; margin-top: 60px;">
                     <div class="floating-card reveal offering-card">
-                        <span class="cormorant italic"
-                            style="font-size: 120px; color: var(--color-primary); line-height: 0.8;">01</span>
+                        <img src="assets/images/expertise-score.png" alt="Original Scoring" class="offering-img">
                         <div>
                             <h3 class="bebas"
                                 style="font-size: 32px; letter-spacing: 0.1em; color: var(--color-text-primary);">
@@ -2640,8 +3113,7 @@
                         </div>
                     </div>
                     <div class="floating-card reveal offering-card">
-                        <span class="cormorant italic"
-                            style="font-size: 120px; color: var(--color-primary); line-height: 0.8;">02</span>
+                        <img src="assets/images/expertise-curation.png" alt="Music Supervision" class="offering-img">
                         <div>
                             <h3 class="bebas"
                                 style="font-size: 32px; letter-spacing: 0.1em; color: var(--color-text-primary);">Music
@@ -2652,8 +3124,7 @@
                         </div>
                     </div>
                     <div class="floating-card reveal offering-card">
-                        <span class="cormorant italic"
-                            style="font-size: 120px; color: var(--color-primary); line-height: 0.8;">03</span>
+                        <img src="assets/images/expertise-licensing.png" alt="Rights & Clearance" class="offering-img">
                         <div>
                             <h3 class="bebas"
                                 style="font-size: 32px; letter-spacing: 0.1em; color: var(--color-text-primary);">Rights
@@ -2703,8 +3174,12 @@
             <div class="footer-grid">
                 <div class="footer-col">
                     <div class="logo-box" style="margin-bottom: 20px;">
-                        <span class="logo-wordmark bebas">SOUNDFRAME</span>
-                        <span class="logo-studio cormorant italic">Studio</span>
+                        <img src="assets/images/logo.png" alt="SoundFrame Logo" class="brand-logo"
+                            style="height: 50px;">
+                        <div class="logo-text">
+                            <span class="logo-wordmark bebas">SOUNDFRAME</span>
+                            <span class="logo-studio cormorant italic">Studio</span>
+                        </div>
                     </div>
                     <p class="mono" style="font-size: 13px;">Every Scene Has a Frequency. <br>Professional Music
                         Supervision for Film, TV, and Media.</p>
@@ -2776,6 +3251,10 @@
             </div>
         </div>
     </footer>
+    <!-- Back to Top -->
+    <button class="back-to-top" id="backToTop" onclick="scrollToTop()" title="Back to Top">
+        <i data-lucide="arrow-up"></i>
+    </button>
 
     <script>
         // Init Lucide Icons
@@ -2792,6 +3271,20 @@
                     icon.setAttribute('data-lucide', 'moon');
                 }
             });
+            lucide.createIcons();
+        }
+
+        // Toggle Password Visibility
+        function togglePass(id, btn) {
+            const input = document.getElementById(id);
+            const icon = btn.querySelector('i');
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.setAttribute('data-lucide', 'eye-off');
+            } else {
+                input.type = 'password';
+                icon.setAttribute('data-lucide', 'eye');
+            }
             lucide.createIcons();
         }
 
@@ -2866,7 +3359,25 @@
             });
         }
 
-        window.addEventListener('scroll', reveal);
+        // Smooth Scroll to Top
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        // Scroll events for Back to Top and reveal
+        window.addEventListener('scroll', () => {
+            reveal();
+            const btt = document.getElementById('backToTop');
+            if (window.pageYOffset > 500) {
+                btt.classList.add('active');
+            } else {
+                btt.classList.remove('active');
+            }
+        });
+
         window.addEventListener('load', () => {
             const hash = window.location.hash.substring(1);
             if (hash) {

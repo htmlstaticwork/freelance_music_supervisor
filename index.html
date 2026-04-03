@@ -1833,6 +1833,16 @@
             color: var(--color-primary);
         }
 
+        #contact-view .contact-info-card {
+            text-align: center !important;
+            justify-content: center !important;
+        }
+
+        #contact-view .contact-info-card div {
+            align-items: center !important;
+            text-align: center !important;
+        }
+
         html.light .infrastructure-section span.mono {
             color: #ffffff !important;
         }
@@ -2371,12 +2381,22 @@
 
         <!-- PAGE 3: PROJECTS / PORTFOLIO -->
         <div id="projects-view" class="view-container" style="display: none;">
-            <section class="section-padding container">
-                <div class="flex-center" style="margin-top: 60px;">
-                    <span class="section-label bebas">ARCHIVE</span>
-                    <h2 class="italic" style="font-size: 64px;">The Portfolio</h2>
+            <section>
+                <section class="hero"
+                    style="display: flex; background-image: url('https://images.unsplash.com/photo-1485846234645-a62644f84728?auto=format&fit=crop&q=80&w=2000');">
+                    <div class="scanline"></div>
+                    <div class="hero-overlay"></div>
+                    <div class="container hero-content">
+                        <span class="hero-tagline bebas reveal active">ARCHIVE</span>
+                        <h1 class="cormorant italic reveal active">The Portfolio</h1>
+                        <p class="mono reveal active">Stories shaped through curation, licensing, and original
+                            composition for film, series, and documentaries.</p>
+                    </div>
+                </section>
+                <div class="section-padding container">
+                    <div class="flex-center">
                     <div class="filter-tabs social-icons"
-                        style="margin-top: 40px; border-top: 0.5px solid var(--color-border); padding-top: 20px;">
+                        style="border-top: 0.5px solid var(--color-border); padding-top: 20px;">
                         <button class="nav-link active bebas"
                             style="background:none; border:none; color:var(--color-primary);">ALL</button>
                         <button class="nav-link bebas" style="background:none; border:none;">FILM</button>
@@ -2420,6 +2440,7 @@
                             <p class="project-meta mono">HBO · 2023</p>
                         </div>
                     </div>
+                </div>
                 </div>
             </section>
 
@@ -2525,12 +2546,20 @@
 
         <!-- PAGE 4: ABOUT FULL -->
         <div id="about-view" class="view-container" style="display: none;">
-            <section class="section-padding container">
-                <div class="flex-center" style="margin-top: 60px;">
-                    <span class="section-label bebas">BIOGRAPHY</span>
-                    <h2 class="italic" style="font-size: 64px;">Our Story</h2>
-                </div>
-                <div class="about-split reveal" style="margin-top: 60px;">
+            <section>
+                <section class="hero"
+                    style="display: flex; background-image: url('https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?auto=format&fit=crop&q=80&w=2000');">
+                    <div class="scanline"></div>
+                    <div class="hero-overlay"></div>
+                    <div class="container hero-content">
+                        <span class="hero-tagline bebas reveal active">BIOGRAPHY</span>
+                        <h1 class="cormorant italic reveal active">Our Story</h1>
+                        <p class="mono reveal active">A boutique studio built by supervisors, composers, and rights
+                            experts focused on narrative-first music direction.</p>
+                    </div>
+                </section>
+                <div class="section-padding container">
+                    <div class="about-split reveal" style="margin-top: 0;">
                     <div class="about-text">
                         <p class="mono">Founded by Marcus Vane in 2012, SoundFrame Studio grew from a boutique licensing
                             house into a full-scale cinematic partner. Our team consists of musicologists, rights
@@ -2544,6 +2573,7 @@
                     <div class="about-image floating-card"
                         style="height: 500px; background-image: url('https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?auto=format&fit=crop&q=80&w=800');">
                     </div>
+                </div>
                 </div>
             </section>
 
@@ -2626,7 +2656,7 @@
                 <div class="container"
                     style="position: relative; z-index: 2; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;">
                     <span class="section-label bebas">INFRASTRUCTURE</span>
-                    <h2 class="cormorant italic" style="font-size: 56px; margin: 20px 0 60px;">Worldwide Audio Nodes
+                    <h2 class="cormorant italic" style="font-size: 56px; margin: 20px 0 60px; color: #ffffff;">Worldwide Audio Nodes
                     </h2>
                     <div style="position: relative; width: 100%; max-width: 800px; height: 300px;">
                         <!-- Custom pseudo-map container -->
@@ -2799,14 +2829,14 @@
                         Studio Access</h2>
                     <form onsubmit="event.preventDefault();" style="display: flex; flex-direction: column; gap: 20px;">
                         <div>
-                            <label class="mono" style="font-size: 11px; margin-bottom: 8px; display: block;">EMAIL
+                            <label class="mono" style="font-size: 11px; margin-bottom: 8px; display: block; text-align: left;">EMAIL
                                 ADDRESS</label>
-                            <input type="email" placeholder="client@studio.com"
+                            <input type="email" placeholder="Email Address"
                                 style="width: 100%; padding: 15px; background: var(--color-bg-void); border: 1px solid var(--color-border); color: var(--color-text-primary); font-family: 'DM Mono'; outline: none;">
                         </div>
                         <div style="position: relative;">
                             <label class="mono"
-                                style="font-size: 11px; margin-bottom: 8px; display: block;">PASSWORD</label>
+                                style="font-size: 11px; margin-bottom: 8px; display: block; text-align: left;">PASSWORD</label>
                             <input type="password" id="login-pass" placeholder="••••••••"
                                 style="width: 100%; padding: 15px; padding-right: 45px; background: var(--color-bg-void); border: 1px solid var(--color-border); color: var(--color-text-primary); font-family: 'DM Mono'; outline: none;">
                             <button type="button" onclick="togglePass('login-pass', this)"
@@ -2896,11 +2926,15 @@
                     style="width: 100%; max-width: 500px; padding: 60px 40px; background: var(--color-bg-surface);">
                     <div class="flex-center" style="margin-bottom: 40px;">
                         <a href="#home" class="logo-box" onclick="showPage('home')"
-                            style="text-decoration: none; text-align: center; cursor: pointer; display: block;">
-                            <span class="logo-wordmark bebas"
-                                style="font-size: 24px; color: var(--color-text-primary);">SOUNDFRAME</span>
-                            <span class="logo-studio cormorant italic"
-                                style="font-size: 14px; color: var(--color-primary); display: block;">Studio</span>
+                            style="text-decoration: none; text-align: center; cursor: pointer; display: flex; justify-content: center;">
+                            <img src="assets/images/logo.png" alt="SoundFrame Logo" class="brand-logo"
+                                style="height: 60px;">
+                            <div class="logo-text">
+                                <span class="logo-wordmark bebas"
+                                    style="font-size: 24px; color: var(--color-text-primary);">SOUNDFRAME</span>
+                                <span class="logo-studio cormorant italic"
+                                    style="font-size: 14px; color: var(--color-primary); display: block;">Studio</span>
+                            </div>
                         </a>
                     </div>
                     <span class="section-label bebas" style="text-align: center;">REGISTRATION</span>
@@ -2911,33 +2945,33 @@
                         Studio archives are restricted to verified production partners.</p>
                     <form onsubmit="event.preventDefault();" style="display: flex; flex-direction: column; gap: 20px;">
                         <div>
-                            <label class="mono" style="font-size: 11px; margin-bottom: 8px; display: block;">FIRST
+                            <label class="mono" style="font-size: 11px; margin-bottom: 8px; display: block; text-align: left;">FIRST
                                 NAME</label>
-                            <input type="text" placeholder="First Name"
+                            <input type="text"
                                 style="width: 100%; padding: 15px; background: var(--color-bg-void); border: 1px solid var(--color-border); color: var(--color-text-primary); font-family: 'DM Mono'; outline: none;">
                         </div>
                         <div>
-                            <label class="mono" style="font-size: 11px; margin-bottom: 8px; display: block;">LAST
+                            <label class="mono" style="font-size: 11px; margin-bottom: 8px; display: block; text-align: left;">LAST
                                 NAME</label>
-                            <input type="text" placeholder="Last Name"
+                            <input type="text"
                                 style="width: 100%; padding: 15px; background: var(--color-bg-void); border: 1px solid var(--color-border); color: var(--color-text-primary); font-family: 'DM Mono'; outline: none;">
                         </div>
                         <div>
-                            <label class="mono" style="font-size: 11px; margin-bottom: 8px; display: block;">PRODUCTION
+                            <label class="mono" style="font-size: 11px; margin-bottom: 8px; display: block; text-align: left;">PRODUCTION
                                 COMPANY</label>
-                            <input type="text" placeholder="Production Company Name"
+                            <input type="text"
                                 style="width: 100%; padding: 15px; background: var(--color-bg-void); border: 1px solid var(--color-border); color: var(--color-text-primary); font-family: 'DM Mono'; outline: none;">
                         </div>
                         <div>
-                            <label class="mono" style="font-size: 11px; margin-bottom: 8px; display: block;">WORK
+                            <label class="mono" style="font-size: 11px; margin-bottom: 8px; display: block; text-align: left;">WORK
                                 EMAIL</label>
-                            <input type="email" placeholder="name@company.com"
+                            <input type="email"
                                 style="width: 100%; padding: 15px; background: var(--color-bg-void); border: 1px solid var(--color-border); color: var(--color-text-primary); font-family: 'DM Mono'; outline: none;">
                         </div>
                         <div style="position: relative;">
                             <label class="mono"
-                                style="font-size: 11px; margin-bottom: 8px; display: block;">PASSWORD</label>
-                            <input type="password" id="signup-pass" placeholder="••••••••"
+                                style="font-size: 11px; margin-bottom: 8px; display: block; text-align: left;">PASSWORD</label>
+                            <input type="password" id="signup-pass"
                                 style="width: 100%; padding: 15px; padding-right: 45px; background: var(--color-bg-void); border: 1px solid var(--color-border); color: var(--color-text-primary); font-family: 'DM Mono'; outline: none;">
                             <button type="button" onclick="togglePass('signup-pass', this)"
                                 style="position: absolute; right: 15px; top: 38px; background: none; border: none; color: var(--color-text-faint); cursor: pointer; display: flex; align-items: center; justify-content: center;">
@@ -2945,9 +2979,9 @@
                             </button>
                         </div>
                         <div style="position: relative;">
-                            <label class="mono" style="font-size: 11px; margin-bottom: 8px; display: block;">CONFIRM
+                            <label class="mono" style="font-size: 11px; margin-bottom: 8px; display: block; text-align: left;">CONFIRM
                                 PASSWORD</label>
-                            <input type="password" id="signup-confirm" placeholder="••••••••"
+                            <input type="password" id="signup-confirm"
                                 style="width: 100%; padding: 15px; padding-right: 45px; background: var(--color-bg-void); border: 1px solid var(--color-border); color: var(--color-text-primary); font-family: 'DM Mono'; outline: none;">
                             <button type="button" onclick="togglePass('signup-confirm', this)"
                                 style="position: absolute; right: 15px; top: 38px; background: none; border: none; color: var(--color-text-faint); cursor: pointer; display: flex; align-items: center; justify-content: center;">
@@ -3006,13 +3040,21 @@
         </div>
         <!-- PAGE 8: TOOLS OR TECHS -->
         <div id="tools-view" class="view-container" style="display: none;">
-            <section class="section-padding container reveal" style="margin-top: 60px;">
-                <div class="flex-center">
-                    <span class="section-label bebas">INFRASTRUCTURE</span>
-                    <h2 class="italic" style="font-size: 64px; text-align: center;">Tools or Techs</h2>
-                </div>
-                <div class="projects-unique-grid"
-                    style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; margin-top: 60px;">
+            <section>
+                <section class="hero"
+                    style="display: flex; background-image: url('https://images.unsplash.com/photo-1511379938547-c1f69419868d?auto=format&fit=crop&q=80&w=2000');">
+                    <div class="scanline"></div>
+                    <div class="hero-overlay"></div>
+                    <div class="container hero-content">
+                        <span class="hero-tagline bebas reveal active">INFRASTRUCTURE</span>
+                        <h1 class="cormorant italic reveal active">Tools or Techs</h1>
+                        <p class="mono reveal active">A hybrid hardware and software chain designed for cinematic
+                            precision, depth, and modern delivery standards.</p>
+                    </div>
+                </section>
+                <div class="section-padding container reveal">
+                    <div class="projects-unique-grid"
+                        style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px;">
                     <div class="floating-card flex-center reveal" style="padding: 60px 40px; text-align: center;">
                         <i data-lucide="headphones"
                             style="width: 48px; height: 48px; color: var(--color-primary); margin-bottom: 20px;"></i>
@@ -3059,6 +3101,7 @@
                         <p class="mono" style="font-size: 12px;">Secure interconnected cloud vault holding over 50,000
                             clearable masters.</p>
                     </div>
+                </div>
                 </div>
             </section>
 
@@ -3464,3 +3507,4 @@
 </body>
 
 </html>
+

@@ -66,12 +66,18 @@
             background-color: var(--color-bg-void);
             color: var(--color-text-primary);
             font-family: 'DM Mono', monospace;
-            line-height: 1.6;
+            line-height: 1.7;
             overflow-x: hidden;
             width: 100%;
             -webkit-font-smoothing: antialiased;
             transition: background-color 0.3s ease, color 0.3s ease;
             position: relative;
+        }
+
+        p {
+            font-size: 18px;
+            line-height: 1.8;
+            color: var(--color-text-muted);
         }
 
         /* Film Grain Texture */
@@ -254,11 +260,16 @@
             height: 48px;
             width: auto;
             object-fit: contain;
-            filter: brightness(1);
+            transition: var(--transition-main);
+        }
+
+        .brand-logo:hover {
+            transform: scale(1.05);
+            filter: drop-shadow(0 0 10px var(--color-primary-glow));
         }
 
         html.light .brand-logo {
-            filter: brightness(0.9);
+            filter: saturate(1.2) contrast(1.1);
         }
 
         .logo-text {
@@ -326,10 +337,17 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            transition: var(--transition-main);
+        }
+
+        .icon-btn i {
+            width: 20px;
+            height: 20px;
         }
 
         .icon-btn:hover {
             color: var(--color-primary);
+            transform: scale(1.1);
         }
 
         .cta-btn-sm {
@@ -351,15 +369,33 @@
         .hero {
             height: 100vh;
             position: relative;
-            background-image: url('https://raw.githubusercontent.com/nazimboudeffa/assets2/main/pics/unsplash/c-d-x-PDX_a_82obo-unsplash.jpg');
+            background-image: url('assets/images/home-hero-bg.png?v=1');
             background-repeat: no-repeat;
             background-size: cover;
             background-position: center;
-            background-attachment: fixed;
             display: flex;
             align-items: center;
             justify-content: center;
-            overflow: hidden;
+            overflow: hidden !important;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        #hero {
+            background-image: url('assets/images/home-hero-bg.png?v=1');
+        }
+
+        #premium-hero {
+            background-image: url('assets/images/premium-hero-bg.png?v=1');
+        }
+
+        .hero::-webkit-scrollbar,
+        .hero *::-webkit-scrollbar {
+            display: none !important;
+        }
+
+        .hero .container {
+            overflow: hidden !important;
         }
 
         .hero-overlay {
@@ -368,12 +404,12 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(to bottom, rgba(8, 10, 15, 0.4) 0%, rgba(8, 10, 15, 0.95) 100%);
+            background: linear-gradient(to bottom, rgba(8, 10, 15, 0.2) 0%, rgba(8, 10, 15, 0.7) 100%);
             z-index: 1;
         }
 
         html.light .hero-overlay {
-            background: linear-gradient(to bottom, rgba(249, 247, 243, 0.2) 0%, rgba(249, 247, 243, 0.6) 100%);
+            background: linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.3) 100%);
         }
 
         .hero-content {
@@ -397,7 +433,7 @@
         }
 
         .hero p {
-            font-size: 16px;
+            font-size: 20px;
             color: var(--color-text-muted);
             max-width: 600px;
             margin: 0 auto 40px auto;
@@ -511,7 +547,7 @@
 
         .service-card p {
             color: var(--color-text-muted);
-            font-size: 14px;
+            font-size: 18px;
             max-width: 320px;
         }
 
@@ -574,7 +610,8 @@
 
         .about-text p {
             margin-bottom: 30px;
-            font-size: 15px;
+            font-size: 19px;
+            line-height: 1.8;
         }
 
         .stats-row {
@@ -683,6 +720,9 @@
             color: var(--color-primary);
             font-size: 12px;
             margin-bottom: 10px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.9);
+            font-weight: 600;
+            letter-spacing: 0.15em;
         }
 
         .project-title {
@@ -691,7 +731,7 @@
         }
 
         .project-meta {
-            font-size: 12px;
+            font-size: 14px;
             color: var(--color-text-muted);
         }
 
@@ -737,7 +777,7 @@
         }
 
         .quote-text {
-            font-size: 16px;
+            font-size: 20px;
             margin-bottom: 30px;
             font-style: italic;
         }
@@ -795,7 +835,7 @@
         }
 
         .cta-banner p {
-            font-size: 18px;
+            font-size: 20px;
             color: var(--color-text-muted);
             margin-bottom: 40px;
         }
@@ -815,10 +855,12 @@
         }
 
         .contact-info-card {
-            padding: 35px;
+            padding: 40px;
             display: flex;
+            flex-direction: column;
             align-items: center;
-            gap: 25px;
+            text-align: center;
+            gap: 20px;
             background: var(--color-bg-surface);
             border: 1px solid var(--color-border);
             border-radius: 4px;
@@ -827,7 +869,7 @@
 
         .contact-info-card:hover {
             border-color: var(--color-primary);
-            transform: translateX(10px);
+            transform: translateY(-10px);
             box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
         }
 
@@ -964,6 +1006,52 @@
             border-color: #0A66C2;
             color: #fff;
         }
+
+        /* --- PORTFOLIO FILTERS --- */
+        .filter-tabs {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+            padding: 30px 0;
+            margin-bottom: 40px;
+        }
+
+        .filter-tab {
+            background: transparent;
+            border: 1px solid var(--color-border);
+            padding: 10px 25px;
+            color: var(--color-text-muted);
+            cursor: pointer;
+            font-size: 14px;
+            letter-spacing: 0.1em;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border-radius: 2px;
+            min-width: 100px;
+        }
+
+        .filter-tab:hover {
+            border-color: var(--color-primary);
+            color: var(--color-primary);
+        }
+
+        .filter-tab.active {
+            background: var(--color-primary);
+            border-color: var(--color-primary);
+            color: #000 !important;
+            font-weight: 700;
+            box-shadow: 0 4px 20px var(--color-primary-glow);
+        }
+
+        html.light .filter-tab:not(.active) {
+            color: #444;
+            border-color: #ccc;
+        }
+
+        html.light .filter-tab.active {
+            color: #fff !important;
+        }
+
 
         .copyright {
             padding-top: 40px;
@@ -1432,7 +1520,7 @@
             }
 
             .command-center-card p {
-                font-size: 13px !important;
+                font-size: 15px !important;
             }
         }
 
@@ -1813,35 +1901,31 @@
         .project-title,
         .project-meta,
         .accordion-content h3,
-        .accordion-content p {
+        .accordion-content p,
+        .hero-content,
+        .hero-content h1,
+        .hero-content p,
+        .hero-content span {
             color: #ffffff !important;
         }
 
         html.light .hero-overlay {
-            background: linear-gradient(to bottom, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.9) 100%);
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.6) 100%);
         }
 
         .premium-hero-overlay {
-            background: linear-gradient(to right, rgba(8, 10, 15, 0.9) 30%, transparent 100%) !important;
+            background: linear-gradient(to right, rgba(8, 10, 15, 0.7) 30%, transparent 100%) !important;
         }
 
         html.light .premium-hero-overlay {
-            background: linear-gradient(to right, rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0.95) 100%) !important;
+            background: linear-gradient(to right, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.3) 100%) !important;
         }
 
         .infrastructure-section .section-label {
             color: var(--color-primary);
         }
 
-        #contact-view .contact-info-card {
-            text-align: center !important;
-            justify-content: center !important;
-        }
 
-        #contact-view .contact-info-card div {
-            align-items: center !important;
-            text-align: center !important;
-        }
 
         html.light .infrastructure-section span.mono {
             color: #ffffff !important;
@@ -1878,8 +1962,8 @@
 
             <nav class="nav-links">
                 <a href="#home" class="nav-link active" onclick="showPage('home')">Home</a>
+                <a href="#tools" class="nav-link" onclick="showPage('tools')">HOME 2</a>
                 <a href="#about" class="nav-link" onclick="showPage('about')">About</a>
-                <a href="#tools" class="nav-link" onclick="showPage('tools')">Tools or Techs</a>
                 <a href="#services" class="nav-link" onclick="showPage('services')">Services</a>
                 <a href="#projects" class="nav-link" onclick="showPage('projects')">Portfolio</a>
                 <a href="#premium" class="nav-link" onclick="showPage('premium')">Premium</a>
@@ -1890,7 +1974,7 @@
                 <button class="icon-btn" onclick="toggleDarkMode()" title="Toggle Dark Mode">
                     <i data-lucide="moon" class="theme-icon-el"></i>
                 </button>
-                <button class="icon-btn" onclick="toggleRTL()" title="Toggle RTL">
+                <button class="icon-btn" onclick="toggleRTL()" title="Switch to Right-to-Left (RTL) Layout">
                     <i data-lucide="languages"></i>
                 </button>
                 <a href="#login" class="cta-btn-sm" onclick="showPage('login')"
@@ -1913,8 +1997,8 @@
         </div>
         <nav style="display: flex; flex-direction: column; gap: 20px;">
             <a href="#home" class="nav-link" onclick="showPage('home')">Home</a>
+            <a href="#tools" class="nav-link" onclick="showPage('tools')">HOME 2</a>
             <a href="#about" class="nav-link" onclick="showPage('about')">About</a>
-            <a href="#tools" class="nav-link" onclick="showPage('tools')">Tools or Techs</a>
             <a href="#services" class="nav-link" onclick="showPage('services')">Services</a>
             <a href="#projects" class="nav-link" onclick="showPage('projects')">Portfolio</a>
             <a href="#premium" class="nav-link" onclick="showPage('premium')">Premium</a>
@@ -1925,7 +2009,7 @@
                 <button class="icon-btn" onclick="toggleDarkMode()" title="Toggle Dark Mode">
                     <i data-lucide="moon" class="theme-icon-el"></i>
                 </button>
-                <button class="icon-btn" onclick="toggleRTL()" title="Toggle RTL">
+                <button class="icon-btn" onclick="toggleRTL()" title="Switch to Right-to-Left (RTL) Layout">
                     <i data-lucide="languages"></i>
                 </button>
             </div>
@@ -1940,7 +2024,7 @@
         <div id="home-view" class="view-container">
 
             <!-- Hero -->
-            <section id="hero" class="hero" style="display: flex;">
+            <section id="hero" class="hero" style="display: flex; overflow: hidden !important;">
                 <div class="scanline"></div>
                 <div class="hero-overlay"></div>
                 <div class="container hero-content">
@@ -2175,7 +2259,7 @@
         <!-- PAGE 2: HOME PREMIUM -->
         <div id="premium-view" class="view-container" style="display: none;">
             <!-- Premium Hero -->
-            <section class="hero" style="display: flex;">
+            <section id="premium-hero" class="hero" style="display: flex;">
                 <div class="scanline"></div>
                 <div class="hero-overlay premium-hero-overlay"></div>
                 <div class="container hero-content" style="text-align: left; margin-left: 0;">
@@ -2201,7 +2285,7 @@
                             style="font-size: 64px; color: var(--color-primary); line-height: 0.8;">01</span>
                         <div>
                             <h3 style="font-size: 24px; margin-bottom: 10px;">Discovery</h3>
-                            <p class="mono" style="font-size: 14px;">Deep dives into script, tonality, and emotional
+                            <p class="mono" style="font-size: 16px;">Deep dives into script, tonality, and emotional
                                 subtext before a single note is selected.</p>
                         </div>
                     </div>
@@ -2210,7 +2294,7 @@
                             style="font-size: 64px; color: var(--color-primary); line-height: 0.8;">02</span>
                         <div>
                             <h3 style="font-size: 24px; margin-bottom: 10px;">Curation</h3>
-                            <p class="mono" style="font-size: 14px;">Leveraging global network of indie artists and
+                            <p class="mono" style="font-size: 16px;">Leveraging global network of indie artists and
                                 major labels to find the "Impossible Song."</p>
                         </div>
                     </div>
@@ -2219,7 +2303,7 @@
                             style="font-size: 64px; color: var(--color-primary); line-height: 0.8;">03</span>
                         <div>
                             <h3 style="font-size: 24px; margin-bottom: 10px;">Negotiation</h3>
-                            <p class="mono" style="font-size: 14px;">Unrivaled expertise in licensing, ensuring budget
+                            <p class="mono" style="font-size: 16px;">Unrivaled expertise in licensing, ensuring budget
                                 protection and legal clarity.</p>
                         </div>
                     </div>
@@ -2228,7 +2312,7 @@
                             style="font-size: 64px; color: var(--color-primary); line-height: 0.8;">04</span>
                         <div>
                             <h3 style="font-size: 24px; margin-bottom: 10px;">Delivery</h3>
-                            <p class="mono" style="font-size: 14px;">High-resolution master management and integration
+                            <p class="mono" style="font-size: 16px;">High-resolution master management and integration
                                 coordination for the final mix.</p>
                         </div>
                     </div>
@@ -2243,7 +2327,7 @@
                         <span class="section-label bebas">EDITORIAL</span>
                         <h2 class="italic" style="font-size: 48px; margin-bottom: 30px;">The Invisible Hand of the
                             Soundtrack</h2>
-                        <p class="mono" style="font-size: 16px; margin-bottom: 40px; line-height: 2;">SoundFrame Studio
+                        <p class="mono" style="font-size: 18px; margin-bottom: 40px; line-height: 2;">SoundFrame Studio
                             doesn't work for the movie; we work for the moment. Each selection is a calculated risk, a
                             poetic insertion designed to trigger memory and emotion in equal measure.</p>
                         <div style="display: flex; gap: 40px;">
@@ -2395,14 +2479,12 @@
                 </section>
                 <div class="section-padding container">
                     <div class="flex-center">
-                        <div class="filter-tabs social-icons"
-                            style="border-top: 0.5px solid var(--color-border); padding-top: 20px;">
-                            <button class="nav-link active bebas"
-                                style="background:none; border:none; color:var(--color-primary);">ALL</button>
-                            <button class="nav-link bebas" style="background:none; border:none;">FILM</button>
-                            <button class="nav-link bebas" style="background:none; border:none;">SERIES</button>
-                            <button class="nav-link bebas" style="background:none; border:none;">DOCUMENTARY</button>
-                            <button class="nav-link bebas" style="background:none; border:none;">ADS</button>
+                        <div class="filter-tabs" style="border-top: 0.5px solid var(--color-border); width: 100%;">
+                            <button class="filter-tab active bebas">ALL</button>
+                            <button class="filter-tab bebas">FILM</button>
+                            <button class="filter-tab bebas">SERIES</button>
+                            <button class="filter-tab bebas">DOCUMENTARY</button>
+                            <button class="filter-tab bebas">ADS</button>
                         </div>
                     </div>
                     <div class="projects-grid">
@@ -2865,51 +2947,55 @@
                             style="width: 100%; margin-top: 10px; padding: 15px; font-size: 14px; cursor: pointer;">Sign
                             In</button>
                     </form>
-                    <p class="mono"
-                        style="margin-top: 30px; font-size: 12px; color: var(--color-text-faint); text-align: center;">
-                        Don't have an account? <a href="#signup" onclick="showPage('signup')"
-                            style="color: var(--color-primary); cursor: pointer;">Request Access</a>
-                    </p>
-                    <div class="social-icons" style="margin-top: 30px; justify-content: center;">
-                        <a href="#" class="social-link social-fb">
+
+                    <div style="display: flex; align-items: center; margin: 25px 0;">
+                        <div style="flex: 1; height: 1px; background: var(--color-border);"></div>
+                        <span
+                            style="padding: 0 15px; font-size: 10px; color: var(--color-text-faint); text-transform: uppercase; letter-spacing: 0.15em; font-family: 'DM Mono';">or
+                            continue with</span>
+                        <div style="flex: 1; height: 1px; background: var(--color-border);"></div>
+                    </div>
+
+                    <div class="social-icons" style="justify-content: center; margin-bottom: 25px;">
+                        <!-- Google -->
+                        <a href="#" class="social-link" title="Continue with Google">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24">
+                                <path fill="#EA4335"
+                                    d="M5.266 9.765A7.077 7.077 0 0 1 12 4.909c1.69 0 3.218.6 4.418 1.582L19.91 3.09c-2.114-1.954-4.887-3.09-7.91-3.09C7.382 0 3.395 3.195 1.568 7.382l3.698 2.383z" />
+                                <path fill="#4285F4"
+                                    d="M23.49 12.275c0-.796-.073-1.564-.205-2.305H12v4.354h6.436c-.277 1.49-.832 2.764-1.809 3.623l3.627 2.818c2.127-1.964 3.359-4.855 3.359-8.49z" />
+                                <path fill="#FBBC05"
+                                    d="M5.266 14.235L1.568 16.618A11.961 11.961 0 0 1 0 12c0-1.632.327-3.186.918-4.618l3.698 2.383c-.15.704-.236 1.432-.236 2.235 0 .803.086 1.531.236 2.235z" />
+                                <path fill="#34A853"
+                                    d="M12 24c3.159 0 5.814-1.05 7.75-2.85l-3.627-2.818c-1.077.723-2.464 1.15-4.123 1.15-3.186 0-5.882-2.155-6.845-5.064L1.568 17.382C3.395 21.568 7.377 24 12 24z" />
+                            </svg>
+                        </a>
+                        <!-- Apple -->
+                        <a href="#" class="social-link" title="Continue with Apple"
+                            style="color: var(--color-text-primary);">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 384 512"
+                                fill="currentColor">
+                                <path
+                                    d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-31.4-97.1-81.1-97.7-123.6zM271.2 61c-.1-1.3-.1-2.6-.1-3.9 0-38.6 30.6-70.6 66.8-71.1.1 1.3.1 2.6.1 3.9 0 38.6-30.6 70.6-66.8 71.1z" />
+                            </svg>
+                        </a>
+                        <!-- Facebook -->
+                        <a href="#" class="social-link social-fb" title="Continue with Facebook">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                 stroke-linejoin="round">
                                 <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
                             </svg>
                         </a>
-                        <a href="#" class="social-link social-ig">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
-                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                stroke-linejoin="round">
-                                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
-                                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
-                                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
-                            </svg>
-                        </a>
-                        <a href="#" class="social-link social-tw">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
-                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                stroke-linejoin="round">
-                                <path
-                                    d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z">
-                                </path>
-                            </svg>
-                        </a>
-                        <a href="#" class="social-link social-li">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
-                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                stroke-linejoin="round">
-                                <path
-                                    d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z">
-                                </path>
-                                <rect x="2" y="9" width="4" height="12"></rect>
-                                <circle cx="4" cy="4" r="2"></circle>
-                            </svg>
-                        </a>
                     </div>
+
+                    <p class="mono" style="font-size: 12px; color: var(--color-text-faint); text-align: center;">
+                        Don't have an account? <a href="#signup" onclick="showPage('signup')"
+                            style="color: var(--color-primary); cursor: pointer;">Request Access</a>
+                    </p>
                 </div>
-            </section>
+        </div>
+        </section>
         </div>
 
         <!-- PAGE 7: SIGN UP -->
@@ -3014,51 +3100,55 @@
                             style="width: 100%; margin-top: 10px; padding: 15px; font-size: 14px; cursor: pointer;">Submit
                             Request</button>
                     </form>
-                    <p class="mono"
-                        style="margin-top: 30px; font-size: 12px; color: var(--color-text-faint); text-align: center;">
-                        Already verified? <a href="#login" onclick="showPage('login')"
-                            style="color: var(--color-primary); cursor: pointer;">Sign In</a>
-                    </p>
-                    <div class="social-icons" style="margin-top: 30px; justify-content: center;">
-                        <a href="#" class="social-link social-fb">
+
+                    <div style="display: flex; align-items: center; margin: 25px 0;">
+                        <div style="flex: 1; height: 1px; background: var(--color-border);"></div>
+                        <span
+                            style="padding: 0 15px; font-size: 10px; color: var(--color-text-faint); text-transform: uppercase; letter-spacing: 0.15em; font-family: 'DM Mono';">or
+                            continue with</span>
+                        <div style="flex: 1; height: 1px; background: var(--color-border);"></div>
+                    </div>
+
+                    <div class="social-icons" style="justify-content: center; margin-bottom: 25px;">
+                        <!-- Google -->
+                        <a href="#" class="social-link" title="Continue with Google">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24">
+                                <path fill="#EA4335"
+                                    d="M5.266 9.765A7.077 7.077 0 0 1 12 4.909c1.69 0 3.218.6 4.418 1.582L19.91 3.09c-2.114-1.954-4.887-3.09-7.91-3.09C7.382 0 3.395 3.195 1.568 7.382l3.698 2.383z" />
+                                <path fill="#4285F4"
+                                    d="M23.49 12.275c0-.796-.073-1.564-.205-2.305H12v4.354h6.436c-.277 1.49-.832 2.764-1.809 3.623l3.627 2.818c2.127-1.964 3.359-4.855 3.359-8.49z" />
+                                <path fill="#FBBC05"
+                                    d="M5.266 14.235L1.568 16.618A11.961 11.961 0 0 1 0 12c0-1.632.327-3.186.918-4.618l3.698 2.383c-.15.704-.236 1.432-.236 2.235 0 .803.086 1.531.236 2.235z" />
+                                <path fill="#34A853"
+                                    d="M12 24c3.159 0 5.814-1.05 7.75-2.85l-3.627-2.818c-1.077.723-2.464 1.15-4.123 1.15-3.186 0-5.882-2.155-6.845-5.064L1.568 17.382C3.395 21.568 7.377 24 12 24z" />
+                            </svg>
+                        </a>
+                        <!-- Apple -->
+                        <a href="#" class="social-link" title="Continue with Apple"
+                            style="color: var(--color-text-primary);">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 384 512"
+                                fill="currentColor">
+                                <path
+                                    d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-31.4-97.1-81.1-97.7-123.6zM271.2 61c-.1-1.3-.1-2.6-.1-3.9 0-38.6 30.6-70.6 66.8-71.1.1 1.3.1 2.6.1 3.9 0 38.6-30.6 70.6-66.8 71.1z" />
+                            </svg>
+                        </a>
+                        <!-- Facebook -->
+                        <a href="#" class="social-link social-fb" title="Continue with Facebook">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                 stroke-linejoin="round">
                                 <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
                             </svg>
                         </a>
-                        <a href="#" class="social-link social-ig">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
-                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                stroke-linejoin="round">
-                                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
-                                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
-                                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
-                            </svg>
-                        </a>
-                        <a href="#" class="social-link social-tw">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
-                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                stroke-linejoin="round">
-                                <path
-                                    d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z">
-                                </path>
-                            </svg>
-                        </a>
-                        <a href="#" class="social-link social-li">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
-                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                stroke-linejoin="round">
-                                <path
-                                    d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z">
-                                </path>
-                                <rect x="2" y="9" width="4" height="12"></rect>
-                                <circle cx="4" cy="4" r="2"></circle>
-                            </svg>
-                        </a>
                     </div>
+
+                    <p class="mono" style="font-size: 12px; color: var(--color-text-faint); text-align: center;">
+                        Already verified? <a href="#login" onclick="showPage('login')"
+                            style="color: var(--color-primary); cursor: pointer;">Sign In</a>
+                    </p>
                 </div>
-            </section>
+        </div>
+        </section>
         </div>
         <!-- PAGE 8: TOOLS OR TECHS -->
         <div id="tools-view" class="view-container" style="display: none;">
@@ -3069,7 +3159,7 @@
                     <div class="hero-overlay"></div>
                     <div class="container hero-content">
                         <span class="hero-tagline bebas reveal active">INFRASTRUCTURE</span>
-                        <h1 class="cormorant italic reveal active">Tools or Techs</h1>
+                        <h1 class="cormorant italic reveal active">HOME 2</h1>
                         <p class="mono reveal active">A hybrid hardware and software chain designed for cinematic
                             precision, depth, and modern delivery standards.</p>
                     </div>
@@ -3315,7 +3405,7 @@
                 </div>
                 <div class="footer-col">
                     <h4>Quick Links</h4>
-                    <ul class="footer-links mono" style="font-size: 12px;">
+                    <ul class="footer-links mono" style="font-size: 14px;">
                         <li><a href="#home" onclick="showPage('home')">Home</a></li>
                         <li><a href="#about" onclick="showPage('about')">About Us</a></li>
                         <li><a href="#tools" onclick="showPage('tools')">Tools or Techs</a></li>
@@ -3327,7 +3417,7 @@
                 </div>
                 <div class="footer-col">
                     <h4>Recent</h4>
-                    <ul class="footer-links mono" style="font-size: 12px;">
+                    <ul class="footer-links mono" style="font-size: 14px;">
                         <li>Beneath the Static (2024)</li>
                         <li>Hollow Meridian (2023)</li>
                         <li>The Frequency (2023)</li>

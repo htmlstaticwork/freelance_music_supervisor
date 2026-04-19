@@ -350,6 +350,27 @@
             transform: scale(1.1);
         }
 
+        .rtl-btn {
+            border: 0.5px solid var(--color-border);
+            padding: 7px 10px;
+            gap: 8px;
+            font-family: 'DM Mono';
+            font-size: 11px;
+            letter-spacing: 0.12em;
+            line-height: 1;
+            color: var(--color-text-primary);
+        }
+
+        .rtl-btn i {
+            width: 16px;
+            height: 16px;
+        }
+
+        .rtl-btn:hover {
+            border-color: var(--color-primary);
+            transform: translateY(-1px);
+        }
+
         .cta-btn-sm {
             border: 0.5px solid var(--color-primary);
             color: var(--color-primary);
@@ -614,6 +635,172 @@
             line-height: 1.8;
         }
 
+        #about-view .founder-hero-card {
+            display: inline-flex;
+            align-items: center;
+            gap: 14px;
+            margin-top: 24px;
+            padding: 10px 14px;
+            border: 1px solid var(--color-border);
+            background: rgba(8, 10, 15, 0.68);
+            backdrop-filter: blur(6px);
+        }
+
+        #about-view .founder-hero-card img {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 1px solid var(--color-primary);
+        }
+
+        #about-view .founder-hero-card strong {
+            font-family: 'Bebas Neue';
+            letter-spacing: 0.08em;
+            font-size: 20px;
+            color: var(--color-text-primary);
+            display: block;
+            line-height: 1;
+        }
+
+        #about-view .founder-hero-card span {
+            font-size: 11px;
+            color: var(--color-text-muted);
+            letter-spacing: 0.12em;
+        }
+
+        #about-view .about-founder-main {
+            position: relative;
+            overflow: hidden;
+            background: none;
+            border: 1px solid var(--color-border);
+        }
+
+        #about-view .about-founder-main img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(22%) contrast(1.08);
+        }
+
+        #about-view .about-founder-caption {
+            position: absolute;
+            left: 20px;
+            right: 20px;
+            bottom: 20px;
+            border-left: 2px solid var(--color-primary);
+            background: rgba(8, 10, 15, 0.74);
+            padding: 12px 14px;
+        }
+
+        #about-view .about-founder-caption strong {
+            display: block;
+            font-family: 'Bebas Neue';
+            color: var(--color-primary);
+            letter-spacing: 0.12em;
+            font-size: 20px;
+            line-height: 1.1;
+        }
+
+        #about-view .about-founder-caption span {
+            font-size: 11px;
+            letter-spacing: 0.12em;
+            color: var(--color-text-muted);
+        }
+
+        #about-view .about-founder-highlight {
+            display: grid;
+            grid-template-columns: 110px 1fr;
+            gap: 24px;
+            align-items: center;
+            padding: 24px;
+            margin: 0 0 40px;
+            border: 1px solid var(--color-border);
+        }
+
+        #about-view .about-founder-highlight img {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 1px solid var(--color-primary);
+        }
+
+        #about-view .about-founder-highlight h3 {
+            margin: 8px 0 6px;
+            font-size: 32px;
+            line-height: 1;
+        }
+
+        #about-view .about-founder-highlight p {
+            margin: 0;
+            font-size: 13px;
+            color: var(--color-text-muted);
+        }
+
+        #about-view .about-trajectory-profile {
+            position: relative;
+            min-height: 500px;
+            overflow: hidden;
+            border: 1px solid var(--color-border);
+        }
+
+        #about-view .about-trajectory-profile img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(18%) contrast(1.04);
+        }
+
+        #about-view .about-trajectory-overlay {
+            position: absolute;
+            left: 20px;
+            right: 20px;
+            bottom: 20px;
+            padding: 16px;
+            background: linear-gradient(180deg, rgba(8, 10, 15, 0.4) 0%, rgba(8, 10, 15, 0.88) 100%);
+            border-left: 2px solid var(--color-primary);
+        }
+
+        #about-view .about-trajectory-overlay p {
+            margin: 8px 0 0;
+            font-size: 12px;
+            color: var(--color-text-muted);
+        }
+
+        #about-view .city-leads {
+            margin-top: 36px;
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 18px;
+            width: 100%;
+            max-width: 900px;
+        }
+
+        #about-view .city-lead {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            border: 1px solid var(--color-border);
+            background: rgba(8, 10, 15, 0.58);
+            padding: 10px;
+        }
+
+        #about-view .city-lead img {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 1px solid var(--color-primary);
+        }
+
+        #about-view .city-lead span {
+            font-size: 10px;
+            letter-spacing: 0.08em;
+            color: var(--color-text-primary);
+        }
+
         .stats-row {
             display: flex;
             gap: 20px;
@@ -723,6 +910,14 @@
             text-shadow: 0 2px 4px rgba(0, 0, 0, 0.9);
             font-weight: 600;
             letter-spacing: 0.15em;
+        }
+
+        .premium-projects .project-genre {
+            display: inline-block;
+            padding: 4px 8px;
+            border: 1px solid rgba(201, 168, 76, 0.45);
+            background: rgba(8, 10, 15, 0.74);
+            text-shadow: none;
         }
 
         .project-title {
@@ -848,41 +1043,58 @@
             align-items: start;
         }
 
-        .contact-info-cards {
-            display: flex;
-            flex-direction: column;
-            gap: 25px;
-        }
-
         .contact-info-card {
-            padding: 40px;
+            padding: 30px 40px;
             display: flex;
-            flex-direction: column;
+            flex-direction: row;
             align-items: center;
-            text-align: center;
-            gap: 20px;
-            background: var(--color-bg-surface);
+            text-align: left;
+            gap: 30px;
+            background: rgba(15, 18, 25, 0.4);
+            backdrop-filter: blur(10px);
             border: 1px solid var(--color-border);
-            border-radius: 4px;
-            transition: all 0.4s ease;
+            border-left: 3px solid var(--color-primary);
+            border-radius: 2px;
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+            position: relative;
+            overflow: hidden;
+            width: 100%;
         }
 
         .contact-info-card:hover {
+            background: rgba(201, 168, 76, 0.05);
             border-color: var(--color-primary);
-            transform: translateY(-10px);
+            transform: translateX(10px);
             box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
         }
 
         .contact-info-card i {
             color: var(--color-primary);
-            width: 24px;
-            height: 24px;
+            width: 28px;
+            height: 28px;
+            flex-shrink: 0;
         }
 
         .contact-info-card div {
             display: flex;
             flex-direction: column;
-            gap: 5px;
+            gap: 4px;
+        }
+
+        .contact-info-card label {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--color-primary);
+            font-family: 'DM Mono', monospace;
+            opacity: 0.8;
+        }
+
+        .contact-info-card p {
+            font-size: 18px;
+            color: var(--color-text-primary);
+            margin: 0;
+            line-height: 1.2;
         }
 
         .contact-form {
@@ -1225,6 +1437,19 @@
                 background-size: contain !important;
                 background-repeat: no-repeat;
                 background-position: center;
+            }
+
+            #about-view .about-founder-highlight {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            #about-view .about-founder-highlight img {
+                margin: 0 auto;
+            }
+
+            #about-view .city-leads {
+                grid-template-columns: repeat(2, 1fr);
             }
 
             .services-grid {
@@ -1974,11 +2199,11 @@
                 <button class="icon-btn" onclick="toggleDarkMode()" title="Toggle Dark Mode">
                     <i data-lucide="moon" class="theme-icon-el"></i>
                 </button>
-                <button class="icon-btn" onclick="toggleRTL()" title="Switch to Right-to-Left (RTL) Layout">
-                    <i data-lucide="languages"></i>
+                <button class="icon-btn rtl-btn" onclick="toggleRTL()" data-rtl-toggle
+                    title="Switch to Right-to-Left (RTL) Layout" aria-label="Switch to Right-to-Left (RTL) Layout">
+                    <span class="rtl-text">RTL</span>
+                    <i data-lucide="languages" aria-hidden="true"></i>
                 </button>
-                <a href="#login" class="cta-btn-sm" onclick="showPage('login')"
-                    style="background: transparent; border: 1px solid var(--color-primary); color: var(--color-primary);">Login</a>
                 <button class="icon-btn hamburger" onclick="toggleSidebar()">
                     <i data-lucide="menu"></i>
                 </button>
@@ -2003,14 +2228,14 @@
             <a href="#projects" class="nav-link" onclick="showPage('projects')">Portfolio</a>
             <a href="#premium" class="nav-link" onclick="showPage('premium')">Premium</a>
             <a href="#contact" class="nav-link" onclick="showPage('contact')">Contact</a>
-            <a href="#login" class="cta-btn-sm" onclick="showPage('login')"
-                style="text-align: center; margin-top: 10px; background: transparent; border: 1px solid var(--color-primary); color: var(--color-primary);">Login</a>
             <div style="display: flex; gap: 15px; justify-content: center; margin-top: 5px;">
                 <button class="icon-btn" onclick="toggleDarkMode()" title="Toggle Dark Mode">
                     <i data-lucide="moon" class="theme-icon-el"></i>
                 </button>
-                <button class="icon-btn" onclick="toggleRTL()" title="Switch to Right-to-Left (RTL) Layout">
-                    <i data-lucide="languages"></i>
+                <button class="icon-btn rtl-btn" onclick="toggleRTL()" data-rtl-toggle
+                    title="Switch to Right-to-Left (RTL) Layout" aria-label="Switch to Right-to-Left (RTL) Layout">
+                    <span class="rtl-text">RTL</span>
+                    <i data-lucide="languages" aria-hidden="true"></i>
                 </button>
             </div>
         </nav>
@@ -2638,6 +2863,13 @@
                         <h1 class="cormorant italic reveal active">Our Story</h1>
                         <p class="mono reveal active">A boutique studio built by supervisors, composers, and rights
                             experts focused on narrative-first music direction.</p>
+                        <div class="founder-hero-card reveal active">
+                            <img src="assets/images/profile-julian.png" alt="Marcus Vane portrait">
+                            <div>
+                                <strong>MARCUS VANE</strong>
+                                <span class="mono">FOUNDER / MUSIC SUPERVISOR</span>
+                            </div>
+                        </div>
                     </div>
                 </section>
                 <div class="section-padding container">
@@ -2655,8 +2887,12 @@
                                 what
                                 the characters aren't saying.”</p>
                         </div>
-                        <div class="about-image floating-card"
-                            style="height: 500px; background-image: url('https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?auto=format&fit=crop&q=80&w=800');">
+                        <div class="about-image about-founder-main floating-card" style="height: 500px;">
+                            <img src="assets/images/profile-julian.png" alt="Marcus Vane in studio">
+                            <div class="about-founder-caption">
+                                <strong>MARCUS VANE</strong>
+                                <span class="mono">CREATIVE DIRECTOR / STORY-LED MUSIC CURATION</span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -2668,10 +2904,19 @@
                 <span class="section-label bebas" style="text-align: center;">THE EXPERTS</span>
                 <h2 class="cormorant italic" style="font-size: 56px; text-align: center; margin-bottom: 60px;">
                     Architects of Sound</h2>
+                <div class="about-founder-highlight floating-card">
+                    <img src="assets/images/profile-julian.png" alt="Marcus Vane founder portrait">
+                    <div>
+                        <span class="section-label bebas" style="margin-bottom: 0;">FOUNDER SPOTLIGHT</span>
+                        <h3 class="cormorant italic">Marcus Vane</h3>
+                        <p class="mono">Creative Director and lead music supervisor shaping every shortlist, clearance
+                            strategy, and final emotional cue.</p>
+                    </div>
+                </div>
                 <div class="projects-unique-grid"
                     style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px;">
                     <div class="team-card floating-card" style="padding: 0; transition-delay: 0.1s;">
-                        <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&q=80&w=600"
+                        <img src="assets/images/profile-elena.png"
                             style="width: 100%; height: 350px; object-fit: cover; filter: grayscale(100%);">
                         <div style="padding: 30px; text-align: center;">
                             <h3 class="bebas" style="font-size: 24px; color: var(--color-primary);">ELENA ROSTOVA</h3>
@@ -2679,15 +2924,15 @@
                         </div>
                     </div>
                     <div class="team-card floating-card" style="padding: 0; transition-delay: 0.3s;">
-                        <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&q=80&w=600"
+                        <img src="assets/images/profile-julian.png"
                             style="width: 100%; height: 350px; object-fit: cover; filter: grayscale(100%);">
                         <div style="padding: 30px; text-align: center;">
-                            <h3 class="bebas" style="font-size: 24px; color: var(--color-primary);">JAMES CORBIN</h3>
-                            <p class="mono" style="font-size: 12px; margin-top: 5px;">LEAD MUSICOLOGIST</p>
+                            <h3 class="bebas" style="font-size: 24px; color: var(--color-primary);">MARCUS VANE</h3>
+                            <p class="mono" style="font-size: 12px; margin-top: 5px;">FOUNDER / MUSIC SUPERVISOR</p>
                         </div>
                     </div>
                     <div class="team-card floating-card" style="padding: 0; transition-delay: 0.5s;">
-                        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=600"
+                        <img src="assets/images/profile-sarah.png"
                             style="width: 100%; height: 350px; object-fit: cover; filter: grayscale(100%);">
                         <div style="padding: 30px; text-align: center;">
                             <h3 class="bebas" style="font-size: 24px; color: var(--color-primary);">SARAH VANE</h3>
@@ -2725,9 +2970,13 @@
                             </div>
                         </div>
                     </div>
-                    <div style="position: relative; height: 100%; min-height: 500px;">
-                        <img src="https://images.unsplash.com/photo-1559424452-eeb3a13ffe2b?auto=format&fit=crop&q=80&w=800"
-                            style="width: 100%; height: 100%; object-fit: cover; filter: sepia(0.3) contrast(1.2);">
+                    <div class="about-trajectory-profile floating-card">
+                        <img src="assets/images/profile-julian.png" alt="Marcus Vane timeline portrait">
+                        <div class="about-trajectory-overlay">
+                            <span class="section-label bebas" style="margin-bottom: 0;">FOUNDER LED MILESTONES</span>
+                            <p class="mono">Marcus personally directed the 2012 launch, the 2018 platform breakthrough,
+                                and the 2024 expansion framework across global teams.</p>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -2765,6 +3014,24 @@
                             style="position: absolute; top: 50%; left: 55%; display: flex; flex-direction: column; align-items: center;">
                             <div class="pulse-dot" style="animation-delay: 1.5s;"></div>
                             <span class="mono" style="margin-top: 30px; font-size: 11px;">PARIS</span>
+                        </div>
+                    </div>
+                    <div class="city-leads">
+                        <div class="city-lead">
+                            <img src="assets/images/profile-julian.png" alt="Los Angeles lead portrait">
+                            <span class="mono">LOS ANGELES / MARCUS</span>
+                        </div>
+                        <div class="city-lead">
+                            <img src="assets/images/profile-elena.png" alt="London lead portrait">
+                            <span class="mono">LONDON / ELENA</span>
+                        </div>
+                        <div class="city-lead">
+                            <img src="assets/images/profile-sarah.png" alt="Tokyo lead portrait">
+                            <span class="mono">TOKYO / SARAH</span>
+                        </div>
+                        <div class="city-lead">
+                            <img src="assets/images/profile-elena.png" alt="Paris lead portrait">
+                            <span class="mono">PARIS / LICENSING TEAM</span>
                         </div>
                     </div>
                 </div>
@@ -2888,8 +3155,10 @@
                     <button class="icon-btn" onclick="toggleDarkMode()" title="Toggle Dark Mode">
                         <i data-lucide="moon" class="theme-icon-el"></i>
                     </button>
-                    <button class="icon-btn" onclick="toggleRTL()" title="Toggle RTL">
-                        <i data-lucide="languages"></i>
+                    <button class="icon-btn rtl-btn" onclick="toggleRTL()" data-rtl-toggle
+                        title="Switch to Right-to-Left (RTL) Layout" aria-label="Switch to Right-to-Left (RTL) Layout">
+                        <span class="rtl-text">RTL</span>
+                        <i data-lucide="languages" aria-hidden="true"></i>
                     </button>
                 </div>
             </div>
@@ -3006,8 +3275,10 @@
                     <button class="icon-btn" onclick="toggleDarkMode()" title="Toggle Dark Mode">
                         <i data-lucide="moon" class="theme-icon-el"></i>
                     </button>
-                    <button class="icon-btn" onclick="toggleRTL()" title="Toggle RTL">
-                        <i data-lucide="languages"></i>
+                    <button class="icon-btn rtl-btn" onclick="toggleRTL()" data-rtl-toggle
+                        title="Switch to Right-to-Left (RTL) Layout" aria-label="Switch to Right-to-Left (RTL) Layout">
+                        <span class="rtl-text">RTL</span>
+                        <i data-lucide="languages" aria-hidden="true"></i>
                     </button>
                 </div>
             </div>
@@ -3479,6 +3750,24 @@
         // Init Lucide Icons
         lucide.createIcons();
 
+        function syncRTLButtons() {
+            const html = document.documentElement;
+            const isRTL = html.getAttribute('dir') === 'rtl';
+            document.body.classList.toggle('rtl', isRTL);
+
+            document.querySelectorAll('[data-rtl-toggle]').forEach(btn => {
+                const label = btn.querySelector('.rtl-text');
+                const actionLabel = isRTL ? 'Switch to Left-to-Right (LTR) Layout' : 'Switch to Right-to-Left (RTL) Layout';
+                if (label) {
+                    label.textContent = isRTL ? 'LTR' : 'RTL';
+                }
+                btn.setAttribute('title', actionLabel);
+                btn.setAttribute('aria-label', actionLabel);
+            });
+        }
+
+        syncRTLButtons();
+
         // Dark Mode Toggle
         function toggleDarkMode() {
             document.documentElement.classList.toggle('light');
@@ -3510,13 +3799,9 @@
         // RTL Toggle
         function toggleRTL() {
             const html = document.documentElement;
-            if (html.getAttribute('dir') === 'ltr') {
-                html.setAttribute('dir', 'rtl');
-                document.body.classList.add('rtl');
-            } else {
-                html.setAttribute('dir', 'ltr');
-                document.body.classList.remove('rtl');
-            }
+            const isRTL = html.getAttribute('dir') === 'rtl';
+            html.setAttribute('dir', isRTL ? 'ltr' : 'rtl');
+            syncRTLButtons();
         }
 
         // Sidebar Toggle

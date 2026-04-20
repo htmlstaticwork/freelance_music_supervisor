@@ -413,6 +413,19 @@
 
         #premium-hero {
             background-image: url('assets/images/premium-hero-bg.png?v=1');
+            justify-content: center !important;
+        }
+
+        #premium-hero .hero-content {
+            text-align: center !important;
+            margin-left: auto !important;
+            margin-right: auto !important;
+        }
+
+        #premium-hero .hero-tagline,
+        #premium-hero h1,
+        #premium-hero p {
+            text-align: center !important;
         }
 
         .hero::-webkit-scrollbar,
@@ -435,7 +448,7 @@
         }
 
         html.light .hero-overlay {
-            background: linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.3) 100%);
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.24) 0%, rgba(0, 0, 0, 0.58) 100%);
         }
 
         .hero-content {
@@ -2147,7 +2160,7 @@
         }
 
         html.light .hero-overlay {
-            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.6) 100%);
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.24) 0%, rgba(0, 0, 0, 0.58) 100%);
         }
 
         .premium-hero-overlay {
@@ -2496,10 +2509,10 @@
         <!-- PAGE 2: HOME PREMIUM -->
         <div id="premium-view" class="view-container" style="display: none;">
             <!-- Premium Hero -->
-            <section id="premium-hero" class="hero" style="display: flex;">
+            <section id="premium-hero" class="hero" style="display: flex; justify-content: flex-start;">
                 <div class="scanline"></div>
                 <div class="hero-overlay premium-hero-overlay"></div>
-                <div class="container hero-content" style="text-align: left; margin-left: 0;">
+                <div class="container hero-content" style="text-align: left; margin: 0;">
                     <span class="hero-tagline bebas reveal" style="text-align: left;">PREMIUM PRODUCTION</span>
                     <h1 class="cormorant italic reveal" style="text-align: left; font-size: clamp(60px, 10vw, 100px);">
                         Scoring the Singular</h1>

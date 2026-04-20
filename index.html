@@ -351,24 +351,28 @@
         }
 
         .rtl-btn {
-            border: 0.5px solid var(--color-border);
-            padding: 7px 10px;
-            gap: 8px;
+            border: 1px solid var(--color-border);
+            padding: 6px 12px;
+            gap: 10px;
             font-family: 'DM Mono';
             font-size: 11px;
-            letter-spacing: 0.12em;
+            letter-spacing: 0.15em;
             line-height: 1;
             color: var(--color-text-primary);
+            border-radius: 2px;
+            background: rgba(201, 168, 76, 0.05);
         }
 
         .rtl-btn i {
-            width: 16px;
-            height: 16px;
+            width: 14px;
+            height: 14px;
         }
 
         .rtl-btn:hover {
             border-color: var(--color-primary);
+            background: var(--color-primary-dim);
             transform: translateY(-1px);
+            box-shadow: 0 4px 15px var(--color-primary-glow);
         }
 
         .cta-btn-sm {
@@ -404,6 +408,7 @@
 
         #hero {
             background-image: url('assets/images/home-hero-bg.png?v=1');
+            padding-top: 90px;
         }
 
         #premium-hero {
@@ -633,6 +638,7 @@
             margin-bottom: 30px;
             font-size: 19px;
             line-height: 1.8;
+            color: var(--color-text-primary);
         }
 
         #about-view .founder-hero-card {
@@ -658,14 +664,14 @@
             font-family: 'Bebas Neue';
             letter-spacing: 0.08em;
             font-size: 20px;
-            color: var(--color-text-primary);
+            color: #FFFFFF;
             display: block;
             line-height: 1;
         }
 
         #about-view .founder-hero-card span {
             font-size: 11px;
-            color: var(--color-text-muted);
+            color: rgba(255, 255, 255, 0.7);
             letter-spacing: 0.12em;
         }
 
@@ -705,7 +711,7 @@
         #about-view .about-founder-caption span {
             font-size: 11px;
             letter-spacing: 0.12em;
-            color: var(--color-text-muted);
+            color: rgba(255, 255, 255, 0.8);
         }
 
         #about-view .about-founder-highlight {
@@ -765,7 +771,7 @@
         #about-view .about-trajectory-overlay p {
             margin: 8px 0 0;
             font-size: 12px;
-            color: var(--color-text-muted);
+            color: rgba(255, 255, 255, 0.7);
         }
 
         #about-view .city-leads {
@@ -1037,10 +1043,16 @@
 
         .contact-layout {
             display: grid;
-            grid-template-columns: 1fr;
-            gap: 40px;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 60px;
             margin-top: 60px;
             align-items: start;
+        }
+
+        .contact-info-cards {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
         }
 
         .contact-info-card {
@@ -2202,7 +2214,7 @@
                 <button class="icon-btn rtl-btn" onclick="toggleRTL()" data-rtl-toggle
                     title="Switch to Right-to-Left (RTL) Layout" aria-label="Switch to Right-to-Left (RTL) Layout">
                     <span class="rtl-text">RTL</span>
-                    <i data-lucide="languages" aria-hidden="true"></i>
+                    <i data-lucide="arrow-left-right" aria-hidden="true"></i>
                 </button>
                 <button class="icon-btn hamburger" onclick="toggleSidebar()">
                     <i data-lucide="menu"></i>
@@ -2235,7 +2247,7 @@
                 <button class="icon-btn rtl-btn" onclick="toggleRTL()" data-rtl-toggle
                     title="Switch to Right-to-Left (RTL) Layout" aria-label="Switch to Right-to-Left (RTL) Layout">
                     <span class="rtl-text">RTL</span>
-                    <i data-lucide="languages" aria-hidden="true"></i>
+                    <i data-lucide="arrow-left-right" aria-hidden="true"></i>
                 </button>
             </div>
         </nav>
@@ -2882,7 +2894,7 @@
                             <h3 class="cormorant italic" style="font-size: 32px; margin: 40px 0 20px;">The Philosophy
                             </h3>
                             <p class="mono"
-                                style="border-left: 2px solid var(--color-primary); padding-left: 20px; font-style: italic;">
+                                style="border-left: 2px solid var(--color-primary); padding-left: 20px; font-style: italic; color: var(--color-text-primary);">
                                 “Music isn't the background—it is the subconscious of the film. It tells the audience
                                 what
                                 the characters aren't saying.”</p>
@@ -2983,12 +2995,12 @@
 
             <!-- UNIQUE ABOUT 3: The Lab Map (Pulse Animation) -->
             <section class="reveal infrastructure-section"
-                style="position: relative; height: 60vh; min-height: 500px; background-image: url('https://images.unsplash.com/photo-1518774164434-297ed9f5188f?auto=format&fit=crop&q=80&w=2000'); background-size: cover; background-position: center; border-top: 1px solid var(--color-border);">
+                style="position: relative; min-height: 100vh; padding: 80px 0; background-image: url('https://images.unsplash.com/photo-1518774164434-297ed9f5188f?auto=format&fit=crop&q=80&w=2000'); background-size: cover; background-position: center; border-top: 1px solid var(--color-border); display: flex; align-items: center;">
                 <div
                     style="position: absolute; top:0; left:0; width:100%; height:100%; background: linear-gradient(to right, rgba(8, 10, 15, 0.95) 0%, rgba(8, 10, 15, 0.7) 100%);">
                 </div>
                 <div class="container"
-                    style="position: relative; z-index: 2; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;">
+                    style="position: relative; z-index: 2; width: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;">
                     <span class="section-label bebas">INFRASTRUCTURE</span>
                     <h2 class="cormorant italic" style="font-size: 56px; margin: 20px 0 60px; color: #ffffff;">Worldwide
                         Audio Nodes
@@ -3158,7 +3170,7 @@
                     <button class="icon-btn rtl-btn" onclick="toggleRTL()" data-rtl-toggle
                         title="Switch to Right-to-Left (RTL) Layout" aria-label="Switch to Right-to-Left (RTL) Layout">
                         <span class="rtl-text">RTL</span>
-                        <i data-lucide="languages" aria-hidden="true"></i>
+                        <i data-lucide="arrow-left-right" aria-hidden="true"></i>
                     </button>
                 </div>
             </div>
@@ -3278,7 +3290,7 @@
                     <button class="icon-btn rtl-btn" onclick="toggleRTL()" data-rtl-toggle
                         title="Switch to Right-to-Left (RTL) Layout" aria-label="Switch to Right-to-Left (RTL) Layout">
                         <span class="rtl-text">RTL</span>
-                        <i data-lucide="languages" aria-hidden="true"></i>
+                        <i data-lucide="arrow-left-right" aria-hidden="true"></i>
                     </button>
                 </div>
             </div>
